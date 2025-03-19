@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+    <html>
+        <body>
+            <form method="get">
+                <fieldset>
+                    <legend>Busca no Google</legend>
+                    <abbr>*</abbr>
+                <label for="termo busca">Termo de Busca</label>
+                <input type="text" name="q" id="termo busca" required placeholder="Digite o termo de busca">
+                </fieldset>
+                <fieldset>
+                <legend>Opções de Busca</legend>
+                <div>
+                <label for="campo_resenha">Resenha:</label>
+                <textarea name="resenha" id="campo_resenha" rows="5" cols="50" placeholder="Digite aqui a resenha"></textarea>
+                </div>
+
+                <div>
+                    <label for="campo_horario">Horario de Busca</label>
+                    <select name="horario" id="campo_horario">
+                    <option value="">Qualquer Horario</option>
+                    <option value="qdr:h">Ultima Hora</option>
+                    <option value="qdr:d">Ultimo Dia</option>
+                    <option value="qdr:w">Ultima Semana</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="campo_data">Data Consulta:</label>
+                    <input type="date" name="data" id="campo_data">
+                </div>
+                <div>
+                    <label for="campo_qtd">Quantidade de Resultados:</label>
+                    <input type="number" name="qtd" id="campo_qtd" min="1" max="100" step="10">
+                </div>
+                <div>
+                    <label for="campo_cpf">CPF:</label>
+                    <input type="text" name="cpf" id="campo_cpf" tabindex="1" pattern="\d{3}.\d{3}.\d{3}-\d{2}" placeholder="Digite o CPF">
+                </div>
+                </fieldset>
+                <button type="submit" formaction="https://www.google.com/search">Buscar Google</button>
+                <button type="submit" formaction="https://www.bing.com/search">Buscar Bing</button>
+
+            </form>
+        </body>
+    </html>
