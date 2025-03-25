@@ -1,2 +1,2 @@
-# *Doutrina*
-## Ambiente do conhecimento.
+# *FreeHub*
+## Local onde todos encontrarão oportunidades de emprego.
