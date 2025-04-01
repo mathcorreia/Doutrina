@@ -1,0 +1,146 @@
+$primary-color: #007bff;
+$secondary-color: #f8f9fa;
+$container-max-width: 1200px;
+$font-family: 'Poppins', sans-serif;
+
+body {
+    font-family: $font-family;
+    margin: 0;
+    line-height: 1.6;
+}
+
+header {
+    background: $primary-color;
+    color: white;
+    padding: 1rem 0;
+
+    .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: $container-max-width;
+        margin: 0 auto;
+
+        h1 {
+            margin: 0;
+        }
+
+        nav {
+            ul {
+                list-style: none;
+                padding: 0;
+
+                li {
+                    display: inline;
+                    margin-right: 20px;
+
+                    a {
+                        color: white;
+                        text-decoration: none;
+                    }
+
+                    .btn {
+                        background: white;
+                        color: $primary-color;
+                        padding: 10px 15px;
+                        border-radius: 5px;
+                        text-transform: uppercase;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.hero {
+    background: $secondary-color;
+    text-align: center;
+    padding: 2rem 0;
+
+    h2 {
+        margin: 0;
+    }
+
+    .btn {
+        margin-top: 20px;
+    }
+}
+
+main {
+    .container {
+        max-width: $container-max-width;
+        margin: 2rem auto;
+
+        h2 {
+            margin-bottom: 1rem;
+        }
+    }
+}
+
+.cards {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+
+    .card {
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 15px;
+        flex: 1;
+        margin: 0 10px;
+        text-align: center;
+
+        h3 {
+            margin: 0;
+        }
+    }
+}
+
+.plans {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+
+    .plan {
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 15px;
+        flex: 1;
+        margin: 0 10px;
+
+        &.destaque {
+            border-color: $primary-color;
+        }
+    }
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+
+    label {
+        margin-top: 10px;
+    }
+
+    input,
+    textarea {
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+    .btn {
+        margin-top: 20px;
+    }
+}
+
+footer {
+    background: $primary-color;
+    color: white;
+    text-align: center;
+    padding: 1rem 0;
+}
