@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FreelaHub - Conectando Freelancers ao Sucesso</title>
+    <link rel="#cadastro" href="paginaLogin.html">
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
@@ -17,7 +18,7 @@
                     <li><a href="#servicos">Serviços</a></li>
                     <li><a href="#planos">Planos</a></li>
                     <li><a href="#contato">Contato</a></li>
-                    <li><a href="#cadastro" class="btn">Cadastre-se</a></li>
+                    <li><a href="paginaLogin.html" class="btn">Cadastre-se</a></li>
                 </ul>
             </nav>
         </div>
@@ -27,12 +28,81 @@
             <h2>Encontre os melhores freelancers para seus projetos</h2>
             <p>Conectamos talentos a oportunidades. Publique um projeto ou encontre um profissional qualificado agora mesmo.</p>
             <a href="#cadastro" class="btn">Comece Agora</a>
-        </div>
+        </div>   
+        
     </section>
     <main>
         <section id="sobre" class="container">
             <h2>Sobre Nós</h2>
             <p>O FreelaHub é uma plataforma inovadora que facilita a conexão entre freelancers e clientes, garantindo eficiência, segurança e qualidade.</p>
+            <div class="custom-carousel">
+  <div class="carousel-track">
+    <div class="carousel-slide active">
+      <img src="/Users/mac/Documents/logica-js-projeto_inicial/img/bat.png" alt="Slide 1">
+      <div class="caption">
+        <h5>Primeiro Slide</h5>
+        <p>Texto do primeiro slide.</p>
+      </div>
+    </div>
+    <div class="carousel-slide">
+      <img src="https://via.placeholder.com/800x400?text=Slide+2" alt="Slide 2">
+      <div class="caption">
+        <h5>Oportunidades em Tecnologia</h5>
+        <p>Testando o carrossel para deixar mais bonito</p>
+      </div>
+    </div>
+    <div class="carousel-slide">
+      <img src="https://via.placeholder.com/800x400?text=Slide+3" alt="Slide 3">
+      <div class="caption">
+        <h5>Terceiro Slide</h5>
+        <p>Texto do terceiro slide.</p>
+      </div>
+    </div>
+  </div>
+
+  <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
+  <button class="next" onclick="moveSlide(1)">&#10095;</button>
+</div>
+
+<!-- Bolinhas abaixo -->
+<div class="carousel-dots">
+  <span onclick="goToSlide(0)" class="dot active"></span>
+  <span onclick="goToSlide(1)" class="dot"></span>
+  <span onclick="goToSlide(2)" class="dot"></span>
+</div>
+
+              
+              
+                    <script>
+                        let currentSlide = 0;
+                        const slides = document.querySelectorAll(".carousel-slide");
+                        const dots = document.querySelectorAll(".dot");
+                      
+                        function showSlide(index) {
+                          slides.forEach((slide, i) => {
+                            slide.classList.remove("active");
+                            dots[i].classList.remove("active");
+                          });
+                      
+                          currentSlide = (index + slides.length) % slides.length;
+                          slides[currentSlide].classList.add("active");
+                          dots[currentSlide].classList.add("active");
+                        }
+                      
+                        function moveSlide(direction) {
+                          showSlide(currentSlide + direction);
+                        }
+                      
+                        function goToSlide(index) {
+                          showSlide(index);
+                        }
+                      
+                        // Autoplay
+                        setInterval(() => {
+                          moveSlide(1);
+                        }, 5000); // troca a cada 5 segundos
+                      </script>
+                      
         </section>
         <section id="servicos" class="container">
             <h2>Nossos Serviços</h2>
