@@ -6,30 +6,20 @@ body {
     background-color: #f4f4f4;
     color: #333;
 }
+
 .container {
     width: 80%;
     margin: 0 auto;
     max-width: 1200px;
+    color: #f4f4f4;
+    text-decoration: none;
 }
+
 header {
     background-color: #0073e6;
-    padding: 20px 0;
+    padding: 25px 0;
     color: white;
     text-align: center;
-}
-nav ul {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-}
-nav ul li {
-    margin: 0 15px;
-}
-nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
 }
 .hero {
     background-color: #005bb5;
@@ -37,30 +27,11 @@ nav ul li a {
     text-align: center;
     padding: 50px 20px;
 }
-.hero h2 {
-    margin: 0;
-    font-size: 2em;
-}
-.hero .btn {
-    display: inline-block;
-    background-color: #ffcc00;
+
+footer {
+    background-color: #222;
     color: white;
-    padding: 10px 20px;
-    text-decoration: none;
-    font-weight: bold;
-    border-radius: 5px;
-    margin-top: 15px;
-}
-.hero .btn:hover {
-    background-color: #e6b800;
-}
-.hero .btn:active {
-    background-color: #cc9900;
-}
-.hero .btn:focus {
-    outline: none;
-}
-.hero .btn:focus-visible {
-    outline: 2px solid #ffcc00;
-    outline-offset: 2px;
+    text-align: center;
+    padding: 10px 0;
+    margin-top: 20px;
 }
