@@ -12,6 +12,7 @@ A proposta do FreelaHub é criar um ecossistema digital em que:
 - Freelancers **apresentam orçamentos e prazos**
 - A plataforma **facilita a escolha e comunicação**
 - Ambas as partes **avaliam a experiência**
+- Figma do projeto: https://www.figma.com/design/XIuqlSS2bx04yJaOv6VWEP/Figma-basics?node-id=603-2
 
 ---
 
