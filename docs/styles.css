@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* Base */
 * {
   box-sizing: border-box;
@@ -6,7 +7,7 @@
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   background-color: #f4f4f4;
   color: #333;
   line-height: 1.6;
@@ -28,6 +29,13 @@ header {
   text-align: center;
 }
 
+header .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
 nav ul {
   list-style: none;
   display: flex;
@@ -35,6 +43,7 @@ nav ul {
   flex-wrap: wrap;
   gap: 20px;
   margin-top: 10px;
+  padding: 0;
 }
 
 nav ul li a {
@@ -189,7 +198,8 @@ footer {
 .carousel-slide img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .caption {
@@ -247,23 +257,157 @@ footer {
   background-color: #717171;
 }
 
+/* Cards & Plans */
+.cards,
+.plans {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.card,
+.plan {
+  background-color: white;
+  flex: 1 1 calc(33.333% - 20px);
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+
+.card:hover,
+.plan:hover {
+  transform: translateY(-5px);
+}
+
+.plan.destaque {
+  background-color: #ffcc00;
+}
+
+.plan .btn {
+  background-color: #ffcc00;
+  color: #333;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.plan .btn:hover {
+  background-color: #e6b800;
+}
+
+/* Botões de Cadastro */
+.opcoes-cadastro {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin: 40px auto;
+}
+
+.opcao {
+  background: white;
+  border-radius: 12px;
+  padding: 20px 30px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 300px;
+  flex: 1 1 250px;
+}
+
+.opcao .cadastro-btn {
+  margin-top: 10px;
+  display: inline-block;
+  padding: 12px 20px;
+  background-color: #0073e6;
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+  border: none;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.opcao .cadastro-btn:hover {
+  background-color: #005bb5;
+}
+
+.opcao p {
+  margin-top: 10px;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+/* Formulário */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 600px;
+  margin: 30px auto;
+}
+
+form label {
+  font-weight: 600;
+}
+
+form input,
+form textarea {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  resize: vertical;
+}
+
+form button {
+  padding: 12px;
+  background-color: #0073e6;
+  color: white;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+form button:hover {
+  background-color: #005bb5;
+}
+
+/* Footer */
+footer {
+  background-color: #222;
+  color: white;
+  text-align: center;
+  padding: 15px 0;
+  margin-top: 40px;
+}
+
 /* Responsivo */
 @media (max-width: 768px) {
-  .cards, .plans {
-    flex-direction: column;
-  }
-
   nav ul {
     flex-direction: column;
     gap: 10px;
   }
-
+  .cards,
+  .plans,
+  .opcoes-cadastro {
+    flex-direction: column;
+    align-items: center;
+  }
   .custom-carousel {
     width: 100%;
     height: 250px;
   }
-
-  .carousel-slide img {
-    object-fit: cover;
-  }
-}
+}/*# sourceMappingURL=styles.css.map */
