@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cadastro de Empresa - FreelaHub</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <h1><a href="index.html" style="color: white; text-decoration: none;">FreelaHub</a></h1>
+      <nav>
+        <ul>
+          <li><a href="index.html#sobre">Sobre</a></li>
+          <li><a href="index.html#servicos">Serviços</a></li>
+          <li><a href="index.html#planos">Planos</a></li>
+          <li><a href="index.html#contato">Contato</a></li>
+          <li><a href="paginaLogin.html" class="btn">Entrar</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <h2>Cadastre sua Empresa</h2>
+      <p>Encontre freelancers qualificados e leve seu projeto adiante com o FreelaHub.</p>
+    </div>
+  </section>
+
+  <main class="container">
+  <form onsubmit="return validarCadastroEmpresa()">
+  <label for="razao">Razão Social:</label>
+  <input type="text" id="razao" name="razao" required placeholder="Digite a razão social da empresa" />
+
+  <label for="cnpj">CNPJ:</label>
+  <input type="text" id="cnpj" name="cnpj" required placeholder="00.000.000/0000-00" pattern="\d{2}\.?\d{3}\.?\d{3}/?\d{4}-?\d{2}" />
+
+  <label for="fundacao">Data de Fundação:</label>
+  <input type="date" id="fundacao" name="fundacao" required>
+
+  <label for="email">E-mail:</label>
+  <input type="email" id="email" name="email" required placeholder="Digite o e-mail da empresa" />
+
+  <label for="telefone">Telefone:</label>
+  <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000" />
+
+  <label for="senha">Senha:</label>
+  <input type="password" id="senha" name="senha" required placeholder="Crie uma senha" />
+
+  <label for="confirmar-senha">Confirmar Senha:</label>
+  <input type="password" id="confirmar-senha" name="confirmar_senha" required placeholder="Repita a senha" />
+
+  <label for="info">Informações Empresariais:</label>
+  <textarea id="info" name="info" rows="4" placeholder="Descreva o que sua empresa faz, serviços, área de atuação, etc."></textarea>
+
+  <button type="submit" class="btn">Cadastrar</button>
+</form>
+    </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 FreelaHub - Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <script>
+  function validarCadastroEmpresa() {
+    const senha = document.getElementById("senha").value;
+    const confirmar = document.getElementById("confirmar-senha").value;
+    const fundacao = document.getElementById("fundacao").value;
+
+    if (senha !== confirmar) {
+      alert("As senhas não coincidem!");
+      return false;
+    }
+
+    const hoje = new Date();
+    const dataFundacao = new Date(fundacao);
+    if (dataFundacao > hoje) {
+      alert("A data de fundação não pode ser no futuro.");
+      return false;
+    }
+
+    alert("Cadastro enviado com sucesso!");
+    return true;
+  }
+</script>
+
+
+</body>
+</html>
