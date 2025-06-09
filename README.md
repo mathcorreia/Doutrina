@@ -1,6 +1,6 @@
 # 🚀 FreelaHub - Conectando Freelancers ao Sucesso
 
-**FreelaHub** é uma plataforma web moderna e intuitiva que conecta **freelancers** a **empresas**, permitindo que ambos alcancem seus objetivos com mais facilidade. Empresas publicam projetos, freelancers enviam propostas — simples assim!
+**FreelaHub** é uma plataforma web moderna e intuitiva que conecta **freelancers** a **empresas**, permitindo que ambos alcancem seus objetivos com mais facilidade. Empresas publicam projetos, freelancers enviam propostas — simples assim!!
 
 ---
 
