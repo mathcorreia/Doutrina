@@ -2,24 +2,29 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UsuarioController; // Importe o seu controller
+use App\Http\Controllers\Api\ProjectController;
 
 /*
 |--------------------------------------------------------------------------
 | API Routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
-|
 */
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Nova rota para cadastro de usuário
-Route::post('/cadastro', [UsuarioController::class, 'store']);
+// Agrupa todas as rotas de projetos para melhor organização
+Route::prefix('projects')->group(function () {
+    // Rota para listar todos os projetos abertos
+    // GET /api/projects
+    Route::get('/', [ProjectController::class, 'index']);
 
-// Mantenha outras rotas que você possa ter...
+    // Rota para criar um novo projeto
+    // POST /api/projects
+    Route::post('/', [ProjectController::class, 'store']);
+
+    // Rota para ver os detalhes de um projeto específico
+    // GET /api/projects/{id}
+    Route::get('/{id}', [ProjectController::class, 'show']);
+});

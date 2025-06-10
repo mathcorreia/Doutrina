@@ -1,0 +1,23 @@
+<header class="main-header">
+  <div class="container">
+    <a routerLink="/" class="logo">FreelaHub</a>
+    <nav>
+      <ul>
+        <li><a routerLink="/projects">Ver Projetos</a></li>
+
+        <li *ngIf="isCompany">
+          <a routerLink="/projects/create" class="cta-button">Postar Projeto</a>
+        </li>
+
+        <ng-container *ngIf="!isLoggedIn">
+          <li><a routerLink="/login">Login</a></li>
+          <li><a routerLink="/signup">Cadastre-se</a></li>
+        </ng-container>
+
+        <li *ngIf="isLoggedIn">
+          <a (click)="onLogout()" class="logout-link">Sair</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>

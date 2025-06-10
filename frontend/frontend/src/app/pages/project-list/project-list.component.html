@@ -1,0 +1,21 @@
+<div class="container">
+  <h1>Projetos Disponíveis</h1>
+  <p>Veja a lista de projetos abertos e envie sua proposta.</p>
+
+  <div class="project-grid" *ngIf="projects.length > 0; else noProjects">
+    <div class="project-card" *ngFor="let project of projects">
+      <h2>{{ project.title }}</h2>
+      <p class="company-name">Postado por: <strong>{{ project.company.user.name }}</strong></p>
+      <p class="description">{{ project.description.substring(0, 150) }}...</p>
+      <div class="budget">
+        <span>Orçamento:</span>
+        <strong>R$ {{ project.budget }}</strong>
+      </div>
+      <a [routerLink]="['/projects', project.id]" class="details-button">Ver Detalhes</a>
+    </div>
+  </div>
+
+  <ng-template #noProjects>
+    <p>Nenhum projeto disponível no momento.</p>
+  </ng-template>
+</div>

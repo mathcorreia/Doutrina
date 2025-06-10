@@ -1,0 +1,28 @@
+<div class="container form-container">
+  <h1>Postar Novo Projeto</h1>
+  <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="title">Título do Projeto</label>
+      <input id="title" type="text" formControlName="title" placeholder="Ex: Desenvolvimento de E-commerce">
+    </div>
+
+    <div class="form-group">
+      <label for="description">Descrição Detalhada</label>
+      <textarea id="description" formControlName="description" rows="6" placeholder="Descreva o que precisa ser feito, requisitos, etc."></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="budget">Orçamento (R$)</label>
+      <input id="budget" type="number" formControlName="budget" placeholder="5000.00">
+    </div>
+
+    <div *ngIf="successMessage" class="alert alert-success">
+      {{ successMessage }}
+    </div>
+    <div *ngIf="errorMessage" class="alert alert-error">
+      {{ errorMessage }}
+    </div>
+
+    <button type="submit" [disabled]="projectForm.invalid">Publicar Projeto</button>
+  </form>
+</div>
