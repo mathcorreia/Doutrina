@@ -2,11 +2,97 @@
   <div class="container">
     <h2>Encontre os melhores freelancers para seus projetos</h2>
     <p>Conectamos talentos a oportunidades. Publique um projeto ou encontre um profissional qualificado agora mesmo.</p>
-    <a routerLink="/selecao-cadastro" class="btn">Comece Agora</a>
-  </div>
+<a routerLink="/selecao-cadastro" class="btn btn-accent">Comece Agora</a>  </div>
 </section>
+
 <main>
   <section id="sobre" class="container">
     <h2>Sobre Nós</h2>
-    </section>
+    <p>O FreelaHub é uma plataforma inovadora que facilita a conexão entre freelancers e clientes, garantindo eficiência, segurança e qualidade.</p>
+    <p>Nosso objetivo é simplificar o processo de contratação de freelancers, oferecendo uma plataforma segura, intuitiva e acessível.</p>
+
+    <div class="custom-carousel">
+      <div class="carousel-track">
+        <div class="carousel-slide active">
+          <img src="assets/img/bat.png" alt="Primeiro Slide"> <div class="caption">
+            <h5>Primeiro Slide</h5>
+            <p>Texto do primeiro slide.</p>
+          </div>
+        </div>
+        <div class="carousel-slide">
+          <img src="https://via.placeholder.com/800x400?text=Slide+2" alt="Segundo Slide">
+          <div class="caption">
+            <h5>Oportunidades em Tecnologia</h5>
+            <p>Testando o carrossel para deixar mais bonito.</p>
+          </div>
+        </div>
+        <div class="carousel-slide">
+          <img src="https://via.placeholder.com/800x400?text=Slide+3" alt="Terceiro Slide">
+          <div class="caption">
+            <h5>Terceiro Slide</h5>
+            <p>Texto do terceiro slide.</p>
+          </div>
+        </div>
+      </div>
+      <button class="prev" (click)="moveSlide(-1)" aria-label="Slide anterior">&#10094;</button>
+      <button class="next" (click)="moveSlide(1)" aria-label="Próximo slide">&#10095;</button>
+    </div>
+    <div class="carousel-dots">
+      <span (click)="goToSlide(0)" class="dot active"></span>
+      <span (click)="goToSlide(1)" class="dot"></span>
+      <span (click)="goToSlide(2)" class="dot"></span>
+    </div>
+  </section>
+
+  <section id="servicos" class="container">
+    <h2>Nossos Serviços</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>Design Gráfico</h3>
+        <p>Encontre designers para criar logos, banners, identidade visual e muito mais.</p>
+      </div>
+      <div class="card">
+        <h3>Desenvolvimento Web</h3>
+        <p>Contrate programadores para criar sites, aplicativos e sistemas personalizados.</p>
+      </div>
+      <div class="card">
+        <h3>Marketing Digital</h3>
+        <p>Impulsione seu negócio com especialistas em SEO, redes sociais e publicidade online.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="planos" class="container">
+    <h2>Planos</h2>
+    <div class="plans">
+      <div class="plan">
+        <h3>Gratuito</h3>
+        <p>Acesso limitado a projetos e mensagens.</p>
+      </div>
+      <div class="plan destaque">
+        <h3>Profissional</h3>
+        <p>Acesso ilimitado, prioridade em projetos e suporte exclusivo.</p>
+      </div>
+      <div class="plan">
+        <h3>Empresarial</h3>
+        <p>Soluções personalizadas para grandes equipes e projetos.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contato" class="container">
+    <h2>Fale Conosco</h2>
+    <form>
+      <label for="nome">Nome:</label>
+      <input type="text" id="nome" name="nome" required placeholder="Digite seu nome" />
+
+      <label for="email">E-mail:</label>
+      <input type="email" id="email" name="email" required placeholder="Digite seu e-mail" />
+
+      <label for="mensagem">Mensagem:</label>
+      <textarea id="mensagem" name="mensagem" required placeholder="Digite sua mensagem"></textarea>
+
+      <button type="submit" class="btn">Enviar</button>
+    </form>
+  </section>
 </main>

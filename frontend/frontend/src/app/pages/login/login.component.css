@@ -1,0 +1,31 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center;    
+  flex-grow: 1;            
+  width: 100%;
+  padding: 2rem 0;         
+}
+
+.login-form-wrapper {
+  width: 100%;
+  max-width: 1000px;
+  padding: 3rem;
+  background-color: var(--color-surface); 
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--color-border);
+}
+
+.login-form-wrapper h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: var(--color-text); 
+}
+
+form button {
+  width: 100%;
+  padding-top: 0.85rem;
+  padding-bottom: 0.85rem;
+}

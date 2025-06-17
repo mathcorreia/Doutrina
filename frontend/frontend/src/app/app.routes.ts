@@ -37,4 +37,3 @@ export const routes: Routes = [
     // Deve ser sempre a última rota da lista
     { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
-

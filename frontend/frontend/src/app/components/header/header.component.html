@@ -3,22 +3,25 @@
     <a routerLink="/" class="logo">FreelaHub</a>
     <nav>
       <ul>
-        <li><a routerLink="/projects">Ver Projetos</a>
-            <a routerLink="/login" class="btn">Login / Cadastro</a>
-</li>
+        <li><a routerLink="/" fragment="sobre">Sobre</a></li>
+        <li><a routerLink="/" fragment="planos">Planos</a></li>
+        
+        <li><a routerLink="/projects">Ver Projetos</a></li>
 
         <ng-container *ngIf="!isLoggedIn">
-          <li><a routerLink="/login" class="btn">Login</a></li>
-          <li><a routerLink="/selecao-cadastro" class="btn">Cadastre-se</a></li>
+          <li><a routerLink="/login">Login</a></li>
+          <li><a routerLink="/selecao-cadastro" class="cta-button">Cadastre-se</a></li>
         </ng-container>
 
-        <li *ngIf="isCompany">
-          <a routerLink="/projects/create" class="btn cta-button">Postar Projeto</a>
-        </li>
-
-        <li *ngIf="isLoggedIn">
-          <a (click)="onLogout()" style="cursor: pointer;">Sair</a>
-        </li>
+        <ng-container *ngIf="isLoggedIn">
+          <li *ngIf="isCompany">
+            <a routerLink="/projects/create" class="cta-button">Postar Projeto</a>
+          </li>
+          
+          <li>
+            <a (click)="onLogout()" class="logout-link">Sair</a>
+          </li>
+        </ng-container>
       </ul>
     </nav>
   </div>

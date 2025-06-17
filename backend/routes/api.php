@@ -2,7 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ProjectController;
+use App\Http\Controllers\Api\ProposalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -10,30 +12,25 @@ use App\Http\Controllers\Api\ProjectController;
 |--------------------------------------------------------------------------
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-// Agrupa todas as rotas de projetos para melhor organização
-Route::prefix('projects')->group(function () {
-    // Rota para listar todos os projetos abertos
-    // GET /api/projects
-    Route::get('/', [ProjectController::class, 'index']);
-
-    // Rota para criar um novo projeto
-    // POST /api/projects
-    Route::post('/', [ProjectController::class, 'store']);
-
-    // Rota para ver os detalhes de um projeto específico
-    // GET /api/projects/{id}
-    Route::get('/{id}', [ProjectController::class, 'show']);
-    
-});
-
-use App\Http\Controllers\Api\AuthController; 
-
-// ... (suas rotas de projetos, propostas, etc.)
-
-// Rotas de Autenticação
+// --- ROTAS PÚBLICAS (não precisam de login) ---
 Route::post('/signup', [AuthController::class, 'signup']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::get('/projects', [ProjectController::class, 'index']);
+Route::get('/projects/{project}', [ProjectController::class, 'show']);
+
+
+// --- ROTAS PROTEGIDAS (precisam de autenticação) ---
+Route::middleware('auth:sanctum')->group(function () {
+    
+    Route::get('/user', function (Request $request) {
+        return $request->user()->load('company', 'freelancer');
+    });
+
+    Route::post('/logout', [AuthController::class, 'logout']);
+
+    Route::post('/projects', [ProjectController::class, 'store']);
+    Route::put('/projects/{project}', [ProjectController::class, 'update']);
+    Route::delete('/projects/{project}', [ProjectController::class, 'destroy']);
+
+    Route::post('/proposals', [ProposalController::class, 'store']);
+});

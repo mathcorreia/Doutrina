@@ -40,7 +40,7 @@ class UsuarioController extends Controller
             // 3. Retorna uma resposta de sucesso
             return response()->json([
                 'message' => 'Usuário cadastrado com sucesso!',
-                'user' => $user // Opcional: retornar os dados do usuário (sem a senha)
+                'user' => $user
             ], 201); // 201 Created
 
         } catch (\Exception $e) {
