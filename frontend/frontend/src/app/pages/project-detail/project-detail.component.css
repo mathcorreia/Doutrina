@@ -1,0 +1,46 @@
+.project-detail-card {
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.project-header h1 {
+  margin-top: 0;
+}
+
+.proposals-section {
+  margin-top: 2rem;
+}
+
+.proposal-card {
+  background-color: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  border-left: 5px solid #007bff;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+}
+
+.proposal-message {
+  font-style: italic;
+  color: #555;
+}
+
+.empty-message, .loading-message {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #777;
+  padding: 2rem;
+}
+
+.feedback-alert {
+  text-align: center;
+  padding: 1rem;
+  margin-top: 1rem;
+  border-radius: 5px;
+  background-color: #d1ecf1;
+  color: #0c5460;
+  border: 1px solid #bee5eb;
+}

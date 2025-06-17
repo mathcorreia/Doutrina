@@ -6,12 +6,12 @@
     <div class="project-card" *ngFor="let project of projects">
       <h2>{{ project.title }}</h2>
       <p class="company-name">Postado por: <strong>{{ project.company.user.name }}</strong></p>
-      <p class="description">{{ project.description.substring(0, 150) }}...</p>
+      <p class="description">{{ project.description | slice:0:150 }}...</p>
       <div class="budget">
         <span>Orçamento:</span>
-        <strong>R$ {{ project.budget }}</strong>
+        <strong>R$ {{ project.budget | number:'1.2-2' }}</strong>
       </div>
-      <a [routerLink]="['/projects', project.id]" class="details-button">Ver Detalhes</a>
+      <a [routerLink]="['/projects', project.id]" class="btn-details">Ver Detalhes</a>
     </div>
   </div>
 

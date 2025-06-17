@@ -27,4 +27,13 @@ Route::prefix('projects')->group(function () {
     // Rota para ver os detalhes de um projeto específico
     // GET /api/projects/{id}
     Route::get('/{id}', [ProjectController::class, 'show']);
+    
 });
+
+use App\Http\Controllers\Api\AuthController; 
+
+// ... (suas rotas de projetos, propostas, etc.)
+
+// Rotas de Autenticação
+Route::post('/signup', [AuthController::class, 'signup']);
+Route::post('/login', [AuthController::class, 'login']);
