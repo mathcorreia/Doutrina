@@ -1,17 +1,14 @@
 var app = angular.module('freelaApp', []);
 
-// frontend/frontend/src/app.js
 
 // Função para cadastro de empresa
 async function cadastrarUsuarioEmpresa(event) {
-    event.preventDefault(); // Impede o envio padrão do formulário
-
+    event.preventDefault(); 
     const nomeEmpresa = document.getElementById('nomeEmpresa').value;
     const emailEmpresa = document.getElementById('emailEmpresa').value;
     const senhaEmpresa = document.getElementById('senhaEmpresa').value;
     const confirmarSenhaEmpresa = document.getElementById('confirmarSenhaEmpresa').value;
 
-    // Validação básica no frontend (opcional, mas recomendada)
     if (senhaEmpresa !== confirmarSenhaEmpresa) {
         alert('As senhas não coincidem!');
         return;
@@ -23,33 +20,29 @@ async function cadastrarUsuarioEmpresa(event) {
     }
 
     const dadosCadastro = {
-        name: nomeEmpresa, // 'name' conforme esperado pelo backend
+        name: nomeEmpresa, 
         email: emailEmpresa,
         password: senhaEmpresa,
-        password_confirmation: confirmarSenhaEmpresa // 'password_confirmation' conforme esperado pelo backend
+        password_confirmation: confirmarSenhaEmpresa 
     };
 
     try {
-        // ATENÇÃO: Ajuste a URL se o seu backend estiver rodando em uma porta diferente
         const response = await fetch('http://localhost:8000/api/cadastro', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Accept': 'application/json' // Importante para o Laravel saber que esperamos JSON
+                'Accept': 'application/json' 
             },
             body: JSON.stringify(dadosCadastro)
         });
 
         const resultado = await response.json();
 
-        if (response.ok) { // Status HTTP 200-299
+        if (response.ok) { 
             alert(resultado.message || 'Cadastro realizado com sucesso!');
-            // Opcional: Redirecionar para a página de login ou dashboard
-            // window.location.href = 'paginaLogin.html';
-            // Limpar formulário
+            
             document.getElementById('formCadastroEmpresa').reset();
         } else {
-            // Tratar erros de validação ou outros erros do servidor
             if (resultado.errors) {
                 let errosMsg = 'Erro de validação:\n';
                 for (const campo in resultado.errors) {
@@ -74,7 +67,6 @@ async function cadastrarUsuarioFreelancer(event) {
     const emailFreelancer = document.getElementById('emailFreelancer').value;
     const senhaFreelancer = document.getElementById('senhaFreelancer').value;
     const confirmarSenhaFreelancer = document.getElementById('confirmarSenhaFreelancer').value;
-    // const tipoServico = document.getElementById('tipoServico').value; // Se precisar enviar mais campos
 
     if (senhaFreelancer !== confirmarSenhaFreelancer) {
         alert('As senhas não coincidem!');
@@ -87,11 +79,10 @@ async function cadastrarUsuarioFreelancer(event) {
     }
 
     const dadosCadastro = {
-        name: nomeFreelancer, // 'name' conforme esperado pelo backend
+        name: nomeFreelancer, 
         email: emailFreelancer,
         password: senhaFreelancer,
         password_confirmation: confirmarSenhaFreelancer
-        // tipo_servico: tipoServico, // Exemplo se você adicionar este campo no backend
     };
 
     try {
@@ -108,7 +99,6 @@ async function cadastrarUsuarioFreelancer(event) {
 
         if (response.ok) {
             alert(resultado.message || 'Cadastro realizado com sucesso!');
-            // window.location.href = 'paginaLogin.html';
             document.getElementById('formCadastroFreelancer').reset();
         } else {
             if (resultado.errors) {
@@ -127,9 +117,6 @@ async function cadastrarUsuarioFreelancer(event) {
     }
 }
 
-// Adicionar event listeners aos formulários (SE NÃO ESTIVEREM inline no HTML)
-// Verifique se os formulários já têm `onsubmit="cadastrarUsuarioEmpresa(event)"` no HTML.
-// Se não tiverem, você pode adicioná-los aqui:
 document.addEventListener('DOMContentLoaded', () => {
     const formEmpresa = document.getElementById('formCadastroEmpresa');
     if (formEmpresa) {

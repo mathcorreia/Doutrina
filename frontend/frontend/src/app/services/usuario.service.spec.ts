@@ -1,6 +1,5 @@
-// frontend/frontend/src/app/services/usuario.service.ts
 import { Injectable } from '@angular/core';
-import { ApiService } from './api.service'; // Seu ApiService
+import { ApiService } from './api.service';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -8,12 +7,10 @@ import { Observable } from 'rxjs';
 })
 export class UsuarioService {
 
-  constructor(private apiService: ApiService) { } // Injete o ApiService
+  constructor(private apiService: ApiService) { } 
 
   cadastrarUsuario(dados: any): Observable<any> {
-    // O endpoint '/cadastro' deve corresponder ao que você definiu no backend
     return this.apiService.post('/cadastro', dados);
   }
 
-  // Outros métodos como login, etc.
 }

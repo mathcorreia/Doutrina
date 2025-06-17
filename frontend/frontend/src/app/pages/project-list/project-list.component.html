@@ -14,6 +14,9 @@
       <a [routerLink]="['/projects', project.id]" class="btn-details">Ver Detalhes</a>
     </div>
   </div>
+  <div *ngIf="isLoading" class="loading-spinner">Carregando...</div>
+<div *ngIf="!isLoading">
+    </div>
 
   <ng-template #noProjects>
     <p>Nenhum projeto disponível no momento.</p>

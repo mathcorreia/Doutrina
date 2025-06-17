@@ -1,4 +1,3 @@
-// frontend/frontend/src/app/services/api.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -7,9 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ApiService {
-  // A URL base da sua API Laravel
-  private baseUrl = 'http://localhost:8000/api'; // Ajuste se necessário
-
+  private baseUrl = 'http://localhost:8000/api'; 
   constructor(private http: HttpClient) { }
 
   post(endpoint: string, data: any): Observable<any> {
@@ -22,5 +19,28 @@ export class ApiService {
     return this.http.post(`${this.baseUrl}${endpoint}`, data, httpOptions);
   }
 
-  // Métodos GET, PUT, DELETE, etc. podem ser adicionados aqui
-}
+  get(endpoint: string): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Accept': 'application/json'
+      })
+    };
+    return this.http.get(`${this.baseUrl}${endpoint}`, httpOptions);
+  }
+  put(endpoint: string, data: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      })
+    };
+    return this.http.put(`${this.baseUrl}${endpoint}`, data, httpOptions);
+  }
+  delete(endpoint: string): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Accept': 'application/json'
+      })
+    };
+    return this.http.delete(`${this.baseUrl}${endpoint}`, httpOptions);
+  }}
