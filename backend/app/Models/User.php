@@ -2,43 +2,25 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'name',
         'email',
         'password',
-        'user_type', // 'freelancer' ou 'company'
+        'user_type', // Campo essencial
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    protected $hidden = [ 'password', 'remember_token', ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
     protected function casts(): array
     {
         return [
@@ -47,19 +29,6 @@ class User extends Authenticatable
         ];
     }
 
-    /**
-     * Obtém o perfil de freelancer associado ao usuário.
-     */
-    public function freelancer(): HasOne
-    {
-        return $this->hasOne(Freelancer::class);
-    }
-
-    /**
-     * Obtém o perfil de empresa associado ao usuário.
-     */
-    public function company(): HasOne
-    {
-        return $this->hasOne(Company::class);
-    }
+    public function freelancer(): HasOne { return $this->hasOne(Freelancer::class); }
+    public function company(): HasOne { return $this->hasOne(Company::class); }
 }

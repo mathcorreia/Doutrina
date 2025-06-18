@@ -1,0 +1,58 @@
+/* Estilo para a lista de projetos */
+.project-list-container {
+  padding: 3rem 0;
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+/* Aqui aplicamos o estilo de card arredondado */
+.project-card {
+  background-color: var(--white-color);
+  border-radius: var(--border-radius); /* Borda arredondada */
+  box-shadow: var(--box-shadow);       /* Sombra suave */
+  overflow: hidden; /* Garante que o conteúdo não vaze das bordas */
+  transition: all var(--transition-speed) ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+}
+
+.project-card .card-content {
+  padding: 1.5rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-card h3 {
+  color: var(--heading-color);
+  margin-bottom: 0.5rem;
+}
+
+.project-card .company-name {
+  color: #6c757d;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.project-card .description {
+  color: var(--text-color);
+  flex-grow: 1;
+  margin-bottom: 1rem;
+}
+
+.project-card .details {
+  border-top: 1px solid var(--light-gray-color);
+  padding-top: 1rem;
+  margin-top: auto;
+  color: var(--primary-color);
+  font-weight: 600;
+}

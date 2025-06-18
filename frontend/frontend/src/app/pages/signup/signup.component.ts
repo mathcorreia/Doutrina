@@ -1,85 +1,98 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common'; // Import CommonModule
-import { ReactiveFormsModule } from '@angular/forms'; // Import ReactiveFormsModule
+import { CommonModule } from '@angular/common';
+import { RouterModule, Router, ActivatedRoute } from '@angular/router';
+import { AbstractControl, FormBuilder, FormGroup, Validators, ReactiveFormsModule, ValidationErrors } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+
+// Validador customizado para comparar as senhas
+export function passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
+  const password = control.get('password');
+  const passwordConfirmation = control.get('password_confirmation');
+  
+  if (password && passwordConfirmation && password.value !== passwordConfirmation.value) {
+    return { passwordMismatch: true };
+  }
+  
+  return null;
+};
 
 @Component({
   selector: 'app-signup',
-  standalone: true, // This component is now standalone. If you intend it to be part of a NgModule, remove this line and import in the NgModule instead.
-  imports: [
-    CommonModule, // Add CommonModule here
-    ReactiveFormsModule // Add ReactiveFormsModule here
-  ],
+  standalone: true,
+  imports: [CommonModule, RouterModule, ReactiveFormsModule],
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
   signupForm!: FormGroup;
+  userType: 'freelancer' | 'company' = 'freelancer';
   errorMessage: string | null = null;
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.signupForm = this.fb.group({
-      user_type: ['freelancer', Validators.required],
-      name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
-      password_confirmation: ['', Validators.required],
-      cpf: [''],
-      cnpj: ['']
-    }, { validators: this.passwordMatchValidator });
-
-    this.userType.valueChanges.subscribe(userType => {
-      this.updateValidators(userType);
+    this.route.paramMap.subscribe(params => {
+      const type = params.get('type');
+      this.userType = (type === 'company') ? 'company' : 'freelancer';
+      this.initializeForm();
     });
-
-    this.updateValidators('freelancer');
   }
 
-  get userType(): AbstractControl {
-    return this.signupForm.get('user_type')!;
-  }
+  initializeForm(): void {
+    let formConfig: any;
 
-  updateValidators(userType: string): void {
-    const cpfControl = this.signupForm.get('cpf')!;
-    const cnpjControl = this.signupForm.get('cnpj')!;
-
-    if (userType === 'freelancer') {
-      cpfControl.setValidators([Validators.required, Validators.pattern(/^\d{3}\.\d{3}\.\d{3}\-\d{2}$/)]);
-      cnpjControl.clearValidators();
-      cnpjControl.setValue('');
-    } else if (userType === 'company') {
-      cnpjControl.setValidators([Validators.required, Validators.pattern(/^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$/)]);
-      cpfControl.clearValidators();
-      cpfControl.setValue('');
+    if (this.userType === 'company') {
+      formConfig = {
+        user_type: ['company'],
+        companyName: ['', Validators.required],
+        razao_social: ['', Validators.required],
+        cnpj: ['', Validators.required],
+        data_fundacao: [''],
+        telefone: [''],
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', [Validators.required, Validators.minLength(8)]],
+        password_confirmation: ['', Validators.required]
+      };
+    } else { // Freelancer
+      formConfig = {
+        user_type: ['freelancer'],
+        name: ['', Validators.required],
+        cpf: ['', Validators.required],
+        data_nascimento: [''],
+        telefone: [''],
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', [Validators.required, Validators.minLength(8)]],
+        password_confirmation: ['', Validators.required]
+      };
     }
-
-    cpfControl.updateValueAndValidity();
-    cnpjControl.updateValueAndValidity();
-  }
-
-  passwordMatchValidator(control: AbstractControl): { [key: string]: boolean } | null {
-    const password = control.get('password');
-    const passwordConfirmation = control.get('password_confirmation');
-    if (password && passwordConfirmation && password.value !== passwordConfirmation.value) {
-      return { 'passwordMismatch': true };
-    }
-    return null;
+    // Adiciona o validador customizado no nível do formulário
+    this.signupForm = this.fb.group(formConfig, { validators: passwordMatchValidator });
   }
 
   onSubmit(): void {
     if (this.signupForm.invalid) {
-      this.signupForm.markAllAsTouched(); // This will help display validation errors
+      this.signupForm.markAllAsTouched();
       return;
     }
-    console.log('Dados do formulário:', this.signupForm.value);
-    // Aqui viria a chamada para o seu authService.register(...)
+    
+    const formData = this.signupForm.value;
+    if (formData.companyName) {
+      formData.name = formData.companyName;
+    }
+
+    this.authService.register(formData).subscribe({
+      next: (response) => {
+        this.router.navigate(['/login']);
+      },
+      error: (err) => {
+        this.errorMessage = 'Erro ao cadastrar. Verifique os dados.';
+        console.error(err);
+      }
+    });
   }
 }

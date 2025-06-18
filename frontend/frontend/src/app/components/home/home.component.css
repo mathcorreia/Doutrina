@@ -1,91 +1,358 @@
-.home-container {
+/* --- Seção Herói (Faixa Azul) --- */
+.hero-section {
+  background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
+  color: var(--color-white);
+  padding: 5rem 2rem;
   text-align: center;
 }
 
-.hero-section {
-  background-color: #007bff;
-  color: white;
-  padding: 6rem 2rem;
-  clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
-}
-
-.hero-content h1 {
-  font-size: 3rem;
-  font-weight: 700;
+.hero-section h1 {
+  font-size: 2.8rem;
   margin-bottom: 1rem;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
-.subtitle {
-  font-size: 1.25rem;
+.hero-section p {
+  font-size: 1.2rem;
   max-width: 600px;
   margin: 0 auto 2rem auto;
   opacity: 0.9;
 }
 
-.hero-actions {
+.hero-section .btn-accent {
+  padding: 0.8rem 2.5rem;
+  font-size: 1.1rem;
+}
+
+/* --- Estilo para o Carrossel --- */
+.page-section {
+  padding: 4rem 2rem;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2.5rem;
+  color: var(--color-primary, #005c97);
+  margin-bottom: 3rem;
+}
+
+.custom-carousel {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  height: 450px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: var(--border-radius, 8px);
+  box-shadow: var(--shadow-md, 0 4px 12px rgba(0,0,0,0.08));
+}
+
+.carousel-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+  z-index: 0;
+}
+
+.carousel-slide.active {
+  opacity: 1;
+  z-index: 1;
+}
+
+.carousel-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.caption {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 15px;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.prev, .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.4);
+  border: none;
+  color: white;
+  font-size: 24px;
+  padding: 10px 15px;
+  cursor: pointer;
+  z-index: 2;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+.prev { left: 15px; }
+.next { right: 15px; }
+
+.prev:hover, .next:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.carousel-dots {
   display: flex;
   justify-content: center;
-  gap: 1rem;
+  margin-top: 1rem;
+  gap: 10px;
 }
 
-.btn {
-  padding: 0.75rem 1.5rem;
-  border-radius: 50px;
-  text-decoration: none;
-  font-weight: 600;
-  transition: all 0.3s ease;
+.dot {
+  height: 12px;
+  width: 12px;
+  background-color: #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.btn-primary {
-  background-color: #fff;
-  color: #007bff;
-  border: 2px solid #fff;
+.dot.active {
+  background-color: var(--color-primary, #005c97);
 }
 
-.btn-primary:hover {
-  background-color: transparent;
-  color: #fff;
+/* --- ESTILOS RESTAURADOS PARA AS OUTRAS SEÇÕES --- */
+
+.bg-light {
+  background-color: #eef1f3;
 }
 
-.btn-secondary {
-  background-color: transparent;
-  color: #fff;
-  border: 2px solid #fff;
+.section-header {
+  text-align: center;
+  margin-bottom: 3rem;
 }
 
-.btn-secondary:hover {
-  background-color: #fff;
-  color: #007bff;
+.section-header h2 {
+  font-size: 2.5rem;
+  color: var(--color-primary);
+  margin-bottom: 0.5rem;
 }
 
-.features-section {
-  padding: 4rem 2rem;
-  max-width: 1200px;
-  margin: -5rem auto 0 auto;
-  position: relative;
-  z-index: 10;
-}
-
-.features-section h2 {
-    margin-bottom: 3rem;
-    font-size: 2.5rem;
-}
-
-.features-grid {
+/* Seção Sobre Nós */
+.about-us-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 3rem;
+}
+
+.about-us-text h2 {
+  font-size: 2.5rem;
+  color: var(--color-primary);
+  margin-bottom: 1.5rem;
+}
+
+.about-us-image img {
+  width: 100%;
+  border-radius: var(--border-radius, 8px);
+  box-shadow: var(--shadow-md, 0 4px 12px rgba(0,0,0,0.08));
+}
+
+/* Seção Planos */
+.plans-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
 }
 
-.feature-card {
-  background: #fff;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+.plan-card {
+  background: var(--color-surface, #fff);
+  border: 1px solid var(--color-border, #dee2e6);
+  border-radius: var(--border-radius, 8px);
+  padding: 2.5rem 2rem;
+  text-align: center;
+  transition: all var(--transition-speed, 0.3s);
+  position: relative;
+}
+
+.plan-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md, 0 4px 12px rgba(0,0,0,0.08));
+}
+
+.plan-card h3 {
+  color: var(--color-primary);
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.plan-card .price {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: 1.5rem;
+}
+
+.plan-card .price-period {
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--color-text-muted, #6c757d);
+}
+
+.plan-card ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 2rem;
   text-align: left;
 }
 
-.feature-card h3 {
-  margin-top: 0;
-  color: #333;
+.plan-card ul li {
+  margin-bottom: 0.75rem;
+}
+
+.plan-card.highlighted {
+  border-color: var(--color-primary);
+  transform: scale(1.05);
+}
+
+.highlight-badge {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-primary);
+  color: var(--color-white);
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+/* Seção Contato */
+.contact-form {
+  max-width: 700px;
+  margin: 2rem auto 0 auto;
+  padding: 2.5rem;
+  background-color: var(--color-surface, #fff);
+  border-radius: var(--border-radius, 8px);
+  box-shadow: var(--shadow-md, 0 4px 12px rgba(0,0,0,0.08));
+}
+
+.form-row {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.form-row .form-group {
+  flex: 1;
+}
+
+.feedback-success {
+  color: #155724;
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  padding: 0.75rem 1.25rem;
+  margin-top: 1rem;
+  border-radius: var(--border-radius, 8px);
+  text-align: center;
+}
+/* --- Seção Contato com Formulário --- */
+#contato .section-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+#contato .section-header h2 {
+  font-size: 2.5rem;
+  color: var(--color-primary);
+  margin-bottom: 0.5rem;
+}
+
+.contact-form {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 2.5rem;
+  background-color: var(--color-surface, #fff);
+  border-radius: var(--border-radius, 8px);
+  box-shadow: var(--shadow-md, 0 4px 12px rgba(0,0,0,0.08));
+}
+
+.form-row {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-row .form-group {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 500;
+  color: var(--color-text);
+  margin-bottom: 0.5rem;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--color-border, #dee2e6);
+  border-radius: var(--border-radius, 8px);
+  font-size: 1rem;
+  font-family: var(--font-family-base);
+  transition: border-color var(--transition-speed, 0.3s), box-shadow var(--transition-speed, 0.3s);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 20%, transparent);
+}
+
+.contact-form .btn {
+  width: 100%;
+}
+
+/* Estilos para as mensagens de feedback */
+.feedback-success {
+  color: #155724;
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  padding: 0.75rem 1.25rem;
+  margin-top: 1rem;
+  border-radius: var(--border-radius, 8px);
+  text-align: center;
+}
+
+.feedback-error {
+  color: #721c24;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  padding: 0.75rem 1.25rem;
+  margin-top: 1rem;
+  border-radius: var(--border-radius, 8px);
+  text-align: center;
+}
+
+/* Responsividade para o formulário */
+@media (max-width: 768px) {
+  .form-row {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
 }

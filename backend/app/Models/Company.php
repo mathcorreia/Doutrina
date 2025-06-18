@@ -5,15 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Company extends Model
 {
     use HasFactory;
 
-    /**
-     * Desativa os timestamps padrão (created_at, updated_at) do Eloquent.
-     */
     public $timestamps = false;
 
     /**
@@ -23,6 +19,8 @@ class Company extends Model
      */
     protected $fillable = [
         'user_id',
+        'company_name',
+        'razao_social',
         'cnpj',
         'data_fundacao',
         'telefone',
@@ -30,26 +28,10 @@ class Company extends Model
     ];
 
     /**
-     * Obtém o usuário (User) ao qual a empresa pertence.
+     * Get the user that owns the company profile.
      */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
-    }
-
-    /**
-     * Obtém os projetos postados pela empresa.
-     */
-    public function projects(): HasMany
-    {
-        return $this->hasMany(Project::class);
-    }
-
-    /**
-     * Obtém as avaliações feitas pela empresa.
-     */
-    public function reviews(): HasMany
-    {
-        return $this->hasMany(Review::class);
     }
 }

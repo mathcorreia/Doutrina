@@ -1,28 +1,27 @@
-<div class="login-container">
-  <div class="login-box">
+<div class="form-page-wrapper">
+  <div class="form-container">
     <h2>Login</h2>
-    <p>Acesse sua conta para continuar.</p>
-
+    <p>Bem-vindo de volta! Faça login para continuar.</p>
+    
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-      <div class="input-group">
-        <label for="email">E-mail:</label>
-        <input type="email" id="email" formControlName="email" required placeholder="Digite seu e-mail" />
+      <div class="form-group">
+        <label for="email">E-mail</label>
+        <input type="email" id="email" formControlName="email" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="password">Senha</label>
+        <input type="password" id="password" formControlName="password" class="form-control">
       </div>
 
-      <div class="input-group">
-        <label for="senha">Senha:</label>
-        <input type="password" id="senha" formControlName="password" required placeholder="Digite sua senha" />
-      </div>
-
-      <div *ngIf="errorMessage" class="alert alert-error">
+      <div *ngIf="errorMessage" class="feedback-error">
         {{ errorMessage }}
       </div>
 
-      <button type="submit" class="btn" [disabled]="loginForm.invalid">Entrar</button>
+      <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Entrar</button>
     </form>
-    <p class="signup-link">
-      Não tem uma conta?
-      <a routerLink="/selecao-cadastro" class="btn">Cadastre-se</a>
-    </p>
+    
+    <div class="form-footer">
+      <p>Não tem uma conta? <a routerLink="/selecao-cadastro">Cadastre-se</a></p>
+    </div>
   </div>
 </div>

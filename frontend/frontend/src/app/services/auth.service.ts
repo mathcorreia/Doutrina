@@ -1,53 +1,119 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, tap } from 'rxjs'; // Adicione Observable aqui
+import { Observable, BehaviorSubject } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { jwtDecode } from 'jwt-decode';
+import { Router } from '@angular/router';
+
+// Interface para definir a estrutura do objeto User
+export interface User {
+  id: number;
+  name: string;
+  email: string;
+  company?: { company_name: string; cnpj: string; };
+  freelancer?: { cpf: string; skills: string; };
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private apiUrl = 'http://127.0.0.1:8000/api';
-  private userSubject = new BehaviorSubject<any | null>(null);
+  private userSubject = new BehaviorSubject<User | null>(this.getUserFromToken());
   public user$ = this.userSubject.asObservable();
 
-  constructor(private http: HttpClient) {
-    const storedUser = localStorage.getItem('freelahub_user');
-    if (storedUser) {
-      this.userSubject.next(JSON.parse(storedUser));
-    }
-  }
+  constructor(private http: HttpClient, private router: Router) { }
 
-  // MÉTODO QUE ESTAVA FALTANDO
-  signup(userData: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/signup`, userData);
-  }
-
-  login(credentials: { email: string, password: string }): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/login`, credentials).pipe(
-      tap(response => {
-        localStorage.setItem('freelahub_token', response.token);
-        localStorage.setItem('freelahub_user', JSON.stringify(response.user));
-        this.userSubject.next(response.user);
+  /**
+   * Envia os dados de registro para a rota /register da API.
+   */
+  register(userData: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/register`, userData).pipe(
+      tap((response: any) => {
+        if (response.access_token) {
+          this.setSession(response.access_token);
+        }
       })
     );
   }
 
+  /**
+   * Envia as credenciais de login para a rota /login da API.
+   */
+  login(credentials: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
+      tap((response: any) => {
+        if (response.access_token) {
+          this.setSession(response.access_token);
+        }
+      })
+    );
+  }
+
+  /**
+   * Realiza o logout, limpando o token e o estado do usuário.
+   */
   logout(): void {
-    localStorage.removeItem('freelahub_token');
-    localStorage.removeItem('freelahub_user');
+    localStorage.removeItem('auth_token');
     this.userSubject.next(null);
+    this.router.navigate(['/login']);
   }
 
-  getCurrentUser(): any | null {
-    return this.userSubject.getValue();
+  /**
+   * Salva o token no localStorage e atualiza o estado do usuário.
+   */
+  private setSession(token: string): void {
+    localStorage.setItem('auth_token', token);
+    this.userSubject.next(this.getUserFromToken());
   }
 
-  isCompany(): boolean {
+  /**
+   * Pega o token do localStorage.
+   */
+  public getToken(): string | null {
+    return localStorage.getItem('auth_token');
+  }
+
+  /**
+   * Verifica se o usuário está logado.
+   */
+  public isLoggedIn(): boolean {
+    return !!this.getToken();
+  }
+  
+  /**
+   * Retorna os dados do usuário logado.
+   */
+  public getCurrentUser(): User | null {
+    return this.userSubject.value;
+  }
+  
+  /**
+   * Verifica se o usuário logado é uma Empresa.
+   */
+  public isCompany(): boolean {
     const user = this.getCurrentUser();
-    return user && user.user_type === 'company';
+    return user ? !!user.company : false;
   }
 
-  isLoggedIn(): boolean {
-    return !!this.getCurrentUser();
+  /**
+   * Decodifica o token JWT para extrair os dados do usuário,
+   * tratando tokens expirados ou inválidos.
+   */
+  private getUserFromToken(): User | null {
+    const token = this.getToken();
+    if (!token) return null;
+
+    try {
+      const decoded: any = jwtDecode(token);
+      if (decoded.exp * 1000 < Date.now()) {
+        localStorage.removeItem('auth_token');
+        return null;
+      }
+      return decoded.user || decoded; 
+    } catch (error) {
+      localStorage.removeItem('auth_token');
+      return null;
+    }
   }
 }

@@ -1,98 +1,127 @@
-<section class="hero">
-  <div class="container">
-    <h2>Encontre os melhores freelancers para seus projetos</h2>
-    <p>Conectamos talentos a oportunidades. Publique um projeto ou encontre um profissional qualificado agora mesmo.</p>
-<a routerLink="/selecao-cadastro" class="btn btn-accent">Comece Agora</a>  </div>
-</section>
-
 <main>
-  <section id="sobre" class="container">
-    <h2>Sobre Nós</h2>
-    <p>O FreelaHub é uma plataforma inovadora que facilita a conexão entre freelancers e clientes, garantindo eficiência, segurança e qualidade.</p>
-    <p>Nosso objetivo é simplificar o processo de contratação de freelancers, oferecendo uma plataforma segura, intuitiva e acessível.</p>
+  <section class="hero-section">
+    <div class="container">
+      <h1>Encontre os Melhores Talentos Para Seus Projetos</h1>
+      <p>A plataforma definitiva que conecta empresas a freelancers especialistas.</p>
+      <a routerLink="/selecao-cadastro" class="btn btn-accent cta-button">Comece Agora</a>
+    </div>
+  </section>
 
-    <div class="custom-carousel">
-      <div class="carousel-track">
-        <div class="carousel-slide active">
-          <img src="assets/img/bat.png" alt="Primeiro Slide"> <div class="caption">
-            <h5>Primeiro Slide</h5>
-            <p>Texto do primeiro slide.</p>
-          </div>
+  <section class="page-section">
+    <div class="container">
+      <div class="custom-carousel">
+        <div class="carousel-slide">
+          <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=2070&auto=format&fit=crop" alt="Pessoas em uma reunião">
+          <div class="caption">Projetos Inovadores</div>
         </div>
         <div class="carousel-slide">
-          <img src="https://via.placeholder.com/800x400?text=Slide+2" alt="Segundo Slide">
-          <div class="caption">
-            <h5>Oportunidades em Tecnologia</h5>
-            <p>Testando o carrossel para deixar mais bonito.</p>
-          </div>
+          <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?q=80&w=1974&auto=format&fit=crop" alt="Equipe colaborando">
+          <div class="caption">Equipes Talentosas</div>
         </div>
         <div class="carousel-slide">
-          <img src="https://via.placeholder.com/800x400?text=Slide+3" alt="Terceiro Slide">
-          <div class="caption">
-            <h5>Terceiro Slide</h5>
-            <p>Texto do terceiro slide.</p>
-          </div>
+          <img src="https://images.unsplash.com/photo-1587440871875-191322ee64b0?q=80&w=2071&auto=format&fit=crop" alt="Pessoa trabalhando em um laptop">
+          <div class="caption">Trabalho Remoto e Flexível</div>
+        </div>
+        
+        <button class="prev" (click)="moveSlide(-1)">&#10094;</button>
+        <button class="next" (click)="moveSlide(1)">&#10095;</button>
+      </div>
+
+      <div class="carousel-dots">
+        <span class="dot" (click)="goToSlide(0)"></span>
+        <span class="dot" (click)="goToSlide(1)"></span>
+        <span class="dot" (click)="goToSlide(2)"></span>
+      </div>
+    </div>
+  </section>
+
+  <section id="sobre" class="page-section">
+    <div class="container about-us-grid">
+      <div class="about-us-text">
+        <h2>Sobre a FreelaHub</h2>
+        <p>A FreelaHub nasceu da necessidade de um espaço mais justo, transparente e eficiente para a contratação de freelancers. Nossa missão é eliminar as barreiras entre talentos e oportunidades, criando um ecossistema onde a colaboração floresce.</p>
+        <p>Acreditamos no poder do trabalho flexível e na capacidade de profissionais incríveis de transformar ideias em realidade. Junte-se a nós e faça parte dessa revolução.</p>
+        <a routerLink="/projects" class="btn btn-primary">Ver Projetos</a>
+      </div>
+      <div class="about-us-image">
+        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop" alt="Equipe discutindo ideias em um quadro">
+      </div>
+    </div>
+  </section>
+
+  <section id="planos" class="page-section bg-light">
+    <div class="container">
+      <div class="section-header">
+        <h2>Planos Flexíveis Para Todos</h2>
+        <p>Escolha o plano que melhor se adapta às suas necessidades.</p>
+      </div>
+      <div class="plans-grid">
+        <div class="plan-card">
+          <h3>Básico</h3>
+          <p class="price">Grátis</p>
+          <ul>
+            <li>✔ Publicar até 3 projetos por mês</li>
+            <li>✔ Acesso a propostas de freelancers</li>
+            <li>✔ Suporte via comunidade</li>
+          </ul>
+          <a routerLink="/selecao-cadastro" class="btn btn-secondary">Começar Agora</a>
+        </div>
+        <div class="plan-card highlighted">
+          <span class="highlight-badge">Mais Popular</span>
+          <h3>Pro</h3>
+          <p class="price">R$49<span class="price-period">/mês</span></p>
+          <ul>
+            <li>✔ Projetos ilimitados</li>
+            <li>✔ Destaque nas listagens</li>
+            <li>✔ Suporte prioritário 24/7</li>
+            <li>✔ Ferramentas de gerenciamento</li>
+          </ul>
+          <a href="#" class="btn btn-primary">Escolher Plano Pro</a>
+        </div>
+        <div class="plan-card">
+          <h3>Enterprise</h3>
+          <p class="price">Contato</p>
+          <ul>
+            <li>✔ Tudo do plano Pro</li>
+            <li>✔ Gerente de conta dedicado</li>
+            <li>✔ Integrações customizadas</li>
+            <li>✔ Relatórios avançados</li>
+          </ul>
+          <a href="#contato" class="btn btn-secondary">Fale Conosco</a>
         </div>
       </div>
-      <button class="prev" (click)="moveSlide(-1)" aria-label="Slide anterior">&#10094;</button>
-      <button class="next" (click)="moveSlide(1)" aria-label="Próximo slide">&#10095;</button>
-    </div>
-    <div class="carousel-dots">
-      <span (click)="goToSlide(0)" class="dot active"></span>
-      <span (click)="goToSlide(1)" class="dot"></span>
-      <span (click)="goToSlide(2)" class="dot"></span>
     </div>
   </section>
 
-  <section id="servicos" class="container">
-    <h2>Nossos Serviços</h2>
-    <div class="cards">
-      <div class="card">
-        <h3>Design Gráfico</h3>
-        <p>Encontre designers para criar logos, banners, identidade visual e muito mais.</p>
-      </div>
-      <div class="card">
-        <h3>Desenvolvimento Web</h3>
-        <p>Contrate programadores para criar sites, aplicativos e sistemas personalizados.</p>
-      </div>
-      <div class="card">
-        <h3>Marketing Digital</h3>
-        <p>Impulsione seu negócio com especialistas em SEO, redes sociais e publicidade online.</p>
-      </div>
+  <section id="contato" class="page-section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Entre em Contato</h2>
+      <p>Tem alguma dúvida ou sugestão? Preencha o formulário abaixo.</p>
     </div>
-  </section>
-
-  <section id="planos" class="container">
-    <h2>Planos</h2>
-    <div class="plans">
-      <div class="plan">
-        <h3>Gratuito</h3>
-        <p>Acesso limitado a projetos e mensagens.</p>
+    
+    <form [formGroup]="contactForm" (ngSubmit)="onContactSubmit()" class="contact-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="name">Seu Nome</label>
+          <input type="text" id="name" formControlName="name" placeholder="Seu nome completo">
+        </div>
+        <div class="form-group">
+          <label for="email">Seu E-mail</label>
+          <input type="email" id="email" formControlName="email" placeholder="seu@email.com">
+        </div>
       </div>
-      <div class="plan destaque">
-        <h3>Profissional</h3>
-        <p>Acesso ilimitado, prioridade em projetos e suporte exclusivo.</p>
+      <div class="form-group">
+        <label for="message">Sua Mensagem</label>
+        <textarea id="message" formControlName="message" rows="6" placeholder="Escreva sua mensagem aqui..."></textarea>
       </div>
-      <div class="plan">
-        <h3>Empresarial</h3>
-        <p>Soluções personalizadas para grandes equipes e projetos.</p>
-      </div>
-    </div>
-  </section>
+      
+      <button type="submit" class="btn btn-primary" [disabled]="contactForm.invalid">Enviar Mensagem</button>
 
-  <section id="contato" class="container">
-    <h2>Fale Conosco</h2>
-    <form>
-      <label for="nome">Nome:</label>
-      <input type="text" id="nome" name="nome" required placeholder="Digite seu nome" />
-
-      <label for="email">E-mail:</label>
-      <input type="email" id="email" name="email" required placeholder="Digite seu e-mail" />
-
-      <label for="mensagem">Mensagem:</label>
-      <textarea id="mensagem" name="mensagem" required placeholder="Digite sua mensagem"></textarea>
-
-      <button type="submit" class="btn">Enviar</button>
+      <p *ngIf="formMessage" [ngClass]="formSuccess ? 'feedback-success' : 'feedback-error'">
+        {{ formMessage }}
+      </p>
     </form>
-  </section>
+  </div>
+</section>
 </main>

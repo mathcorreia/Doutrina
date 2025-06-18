@@ -1,53 +1,73 @@
-<div class="signup-page-wrapper">
-  <div class="signup-container">
-    <h1>Crie sua Conta</h1>
-    <p>Preencha os campos para se juntar à FreelaHub.</p>
+<div class="form-page-wrapper">
+  <div class="form-container">
+    <h2 *ngIf="userType === 'freelancer'">Cadastro de Freelancer</h2>
+    <h2 *ngIf="userType === 'company'">Cadastro de Empresa</h2>
+    <p>Preencha os campos para criar sua conta.</p>
 
     <form *ngIf="signupForm" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
-      <div class="form-group">
-        <label for="user_type">Eu sou:</label>
-        <select formControlName="user_type" id="user_type" class="form-control">
-          <option value="freelancer">Freelancer (Quero trabalhar)</option>
-          <option value="company">Empresa (Quero contratar)</option>
-        </select>
-      </div>
+      <ng-container *ngIf="userType === 'freelancer'">
+        <div class="form-group">
+          <label for="name">Nome Completo</label>
+          <input type="text" id="name" formControlName="name" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="cpf">CPF</label>
+          <input type="text" id="cpf" formControlName="cpf" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="data_nascimento">Data de Nascimento</label>
+          <input type="date" id="data_nascimento" formControlName="data_nascimento" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="telefone">Telefone</label>
+          <input type="tel" id="telefone" formControlName="telefone" class="form-control" placeholder="(XX) XXXXX-XXXX">
+        </div>
+      </ng-container>
 
-      <div class="form-group">
-        <label for="name">Nome Completo</label>
-        <input type="text" id="name" formControlName="name" class="form-control" placeholder="Seu nome">
-      </div>
-
-      <div class="form-group" *ngIf="userType.value === 'freelancer'">
-        <label for="cpf">CPF</label>
-        <input type="text" id="cpf" formControlName="cpf" class="form-control" placeholder="000.000.000-00">
-      </div>
-
-      <div class="form-group" *ngIf="userType.value === 'company'">
-        <label for="cnpj">CNPJ</label>
-        <input type="text" id="cnpj" formControlName="cnpj" class="form-control" placeholder="00.000.000/0000-00">
-      </div>
+      <ng-container *ngIf="userType === 'company'">
+        <div class="form-group">
+          <label for="companyName">Nome Fantasia</label>
+          <input type="text" id="companyName" formControlName="companyName" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="razao_social">Razão Social</label>
+          <input type="text" id="razao_social" formControlName="razao_social" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="cnpj">CNPJ</label>
+          <input type="text" id="cnpj" formControlName="cnpj" class="form-control">
+        </div>
+         <div class="form-group">
+          <label for="data_fundacao">Data de Fundação</label>
+          <input type="date" id="data_fundacao" formControlName="data_fundacao" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="telefone">Telefone</label>
+          <input type="tel" id="telefone" formControlName="telefone" class="form-control" placeholder="(XX) XXXX-XXXX">
+        </div>
+      </ng-container>
 
       <div class="form-group">
         <label for="email">E-mail</label>
-        <input type="email" id="email" formControlName="email" class="form-control" placeholder="seu@email.com">
+        <input type="email" id="email" formControlName="email" class="form-control">
       </div>
-
       <div class="form-group">
-        <label for="password">Senha (mínimo 8 caracteres)</label>
+        <label for="password">Senha</label>
         <input type="password" id="password" formControlName="password" class="form-control">
       </div>
-
       <div class="form-group">
         <label for="password_confirmation">Confirmar Senha</label>
         <input type="password" id="password_confirmation" formControlName="password_confirmation" class="form-control">
-        <div *ngIf="signupForm.errors?.['passwordMismatch'] && (signupForm.get('password_confirmation')?.touched)" class="alert alert-error">
+        <div *ngIf="signupForm.errors?.['passwordMismatch'] && signupForm.get('password_confirmation')?.touched" class="feedback-error-inline">
           As senhas não conferem.
         </div>
       </div>
+      
+      <div *ngIf="errorMessage" class="feedback-error">
+        {{ errorMessage }}
+      </div>
 
-      <div *ngIf="errorMessage" class="alert alert-error">{{ errorMessage }}</div>
-
-      <button type="submit" class="submit-btn" [disabled]="signupForm.invalid">Cadastrar</button>
+      <button type="submit" class="btn btn-primary" [disabled]="signupForm.invalid">Criar Conta</button>
     </form>
   </div>
 </div>

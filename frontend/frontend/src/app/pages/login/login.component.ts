@@ -1,18 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { RouterModule, Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink],
+  imports: [
+    CommonModule,
+    RouterModule,
+    ReactiveFormsModule
+  ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  // Declara a propriedade do formulário
   loginForm!: FormGroup;
   errorMessage: string | null = null;
 
@@ -23,33 +26,34 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Inicializa o formulário com seus campos e validações
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]]
+      password: ['', Validators.required]
     });
   }
 
-  // Função chamada quando o formulário é enviado
   onSubmit(): void {
     if (this.loginForm.invalid) {
-      this.errorMessage = 'Por favor, preencha todos os campos corretamente.';
+      this.loginForm.markAllAsTouched();
       return;
     }
 
-    this.errorMessage = null;
-
-    // Chama o serviço de autenticação para fazer a requisição à API
     this.authService.login(this.loginForm.value).subscribe({
       next: () => {
-        // Se o login for bem-sucedido, navega para a página principal
-        alert('Login realizado com sucesso!');
-        this.router.navigate(['/']);
+        // --- AQUI ESTÁ A LÓGICA DE REDIRECIONAMENTO ---
+        // Após o login, o AuthService já tem os dados do usuário.
+        // Verificamos se o usuário é uma empresa.
+        if (this.authService.isCompany()) {
+          // Se for empresa, redireciona para a criação de projeto.
+          this.router.navigate(['/projects/create']);
+        } else {
+          // Se for freelancer (ou outro tipo), redireciona para a lista de projetos.
+          this.router.navigate(['/projects']);
+        }
       },
       error: (err) => {
-        // Se der erro, mostra uma mensagem para o usuário
         this.errorMessage = 'E-mail ou senha inválidos. Tente novamente.';
-        console.error('Erro de login:', err);
+        console.error(err);
       }
     });
   }
