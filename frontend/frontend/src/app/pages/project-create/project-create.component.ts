@@ -1,50 +1,59 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { ProjectService } from '../../services/project.service';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router, RouterModule } from '@angular/router';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { ApiService } from '../../services/api.service'; // Supondo que você use um ApiService
 
 @Component({
   selector: 'app-project-create',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule], // Módulo para formulários reativos
+  imports: [
+    CommonModule,
+    RouterModule,
+    ReactiveFormsModule // Módulo essencial para formulários
+  ],
   templateUrl: './project-create.component.html',
-  styleUrl: './project-create.component.css'
+  styleUrls: ['./project-create.component.css']
 })
-export class ProjectCreateComponent {
-  projectForm: FormGroup;
+export class ProjectCreateComponent implements OnInit {
+  projectForm!: FormGroup;
   errorMessage: string | null = null;
   successMessage: string | null = null;
 
   constructor(
     private fb: FormBuilder,
-    private projectService: ProjectService,
+    private apiService: ApiService,
     private router: Router
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     this.projectForm = this.fb.group({
       title: ['', [Validators.required, Validators.maxLength(255)]],
       description: ['', Validators.required],
-      budget: ['', [Validators.required, Validators.min(0)]],
-      // IMPORTANTE: Este campo deve ser preenchido com o ID da empresa logada
-      company_id: [1, Validators.required] // Usando '1' como exemplo
+      budget: ['', [Validators.required, Validators.min(1)]],
+      skills: ['', Validators.required]
     });
   }
 
   onSubmit(): void {
-    if (this.projectForm.valid) {
-      this.projectService.createProject(this.projectForm.value).subscribe({
-        next: (response) => {
-          this.successMessage = 'Projeto criado com sucesso!';
-          this.errorMessage = null;
-          // Redireciona para a lista de projetos após 2 segundos
-          setTimeout(() => this.router.navigate(['/projects']), 2000);
-        },
-        error: (err) => {
-          this.errorMessage = 'Erro ao criar o projeto. Verifique os dados e tente novamente.';
-          this.successMessage = null;
-          console.error(err);
-        }
-      });
+    if (this.projectForm.invalid) {
+      this.projectForm.markAllAsTouched();
+      return;
     }
+
+    // Supondo que você tenha um método no seu ApiService para criar projetos
+    this.apiService.post('/projects', this.projectForm.value).subscribe({
+      next: (response) => {
+        this.successMessage = 'Projeto criado com sucesso!';
+        this.errorMessage = null;
+        // Redireciona para a página do projeto criado ou para a lista de projetos
+        setTimeout(() => this.router.navigate(['/projects']), 2000);
+      },
+      error: (err) => {
+        this.errorMessage = 'Ocorreu um erro ao criar o projeto. Tente novamente.';
+        this.successMessage = null;
+        console.error(err);
+      }
+    });
   }
 }

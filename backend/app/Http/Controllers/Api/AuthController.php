@@ -34,19 +34,22 @@ class AuthController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        try {
-            DB::beginTransaction();
-
-            // AQUI ESTÁ A CORREÇÃO PRINCIPAL
+        return DB::transaction(function () use ($request) {
             $user = User::create([
                 'name' => $request->name ?? $request->companyName,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
-                'user_type' => $request->user_type, // Enviando o tipo de usuário
+                'user_type' => $request->user_type,
             ]);
 
+            // CORREÇÃO 1: Seja explícito ao criar o freelancer
             if ($request->user_type === 'freelancer') {
-                $user->freelancer()->create($validator->validated());
+                $user->freelancer()->create([
+                    'cpf' => $request->cpf,
+                    'data_nascimento' => $request->data_nascimento,
+                    'telefone' => $request->telefone,
+                    // adicione 'skills' aqui se tiver no seu formulário
+                ]);
             } elseif ($request->user_type === 'company') {
                 $user->company()->create([
                     'company_name' => $request->companyName,
@@ -57,15 +60,9 @@ class AuthController extends Controller
                 ]);
             }
             
-            DB::commit();
             $token = $user->createToken('auth_token')->plainTextToken;
             return response()->json(['message' => 'Usuário registrado com sucesso!', 'access_token' => $token], 201);
-
-        } catch (\Exception $e) {
-            DB::rollBack();
-            Log::error('Erro ao registrar o usuário: ' . $e->getMessage());
-            return response()->json(['message' => 'Erro interno ao registrar o usuário.'], 500);
-        }
+        });
     }
 
     public function login(Request $request)
@@ -75,6 +72,12 @@ class AuthController extends Controller
             throw ValidationException::withMessages(['email' => ['As credenciais fornecidas estão incorretas.']]);
         }
         $user = User::where('email', $request->email)->firstOrFail();
+        
+        // CORREÇÃO 2: Carrega o perfil junto com o usuário no login
+        if ($user->user_type) {
+            $user->load($user->user_type);
+        }
+        
         $token = $user->createToken('auth_token')->plainTextToken;
         return response()->json(['access_token' => $token, 'token_type' => 'Bearer', 'user' => $user]);
     }

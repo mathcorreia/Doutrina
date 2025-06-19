@@ -7,6 +7,7 @@
       <li><a routerLink="/projects">Explorar Projetos</a></li>
       <li><a routerLink="/" fragment="sobre">Sobre</a></li>
       <li><a routerLink="/" fragment="planos">Planos</a></li>
+      <li><a routerLink="/" fragment="contato">Contato</a></li>
       
       <ng-container *ngIf="!isLoggedIn">
         <li><a routerLink="/login">Login</a></li>
@@ -14,13 +15,9 @@
       </ng-container>
 
       <ng-container *ngIf="isLoggedIn">
-        <li *ngIf="isCompany">
-          <a routerLink="/projects/create" class="btn btn-secondary">Publicar Projeto</a>
-        </li>
-        <li><span class="welcome-message">Bem-vindo, {{ user?.name }}</span></li>
-        <li>
-          <a (click)="logout()" class="logout-link">Sair</a>
-        </li>
+        <li><a routerLink="/dashboard" class="nav-icon" title="Minha Conta">👤</a></li>
+        
+        <li><a (click)="logout()" class="nav-icon logout-icon" title="Sair">↪️</a></li>
       </ng-container>
     </ul>
   </nav>

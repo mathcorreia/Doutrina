@@ -1,24 +1,37 @@
-<div class="container form-container">
-  <h1>Postar Novo Projeto</h1>
-  <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
-    <div class="input-group">
-      <label for="title">Título do Projeto</label>
-      <input id="title" type="text" formControlName="title" placeholder="Ex: Desenvolvimento de E-commerce">
-    </div>
+<div class="form-page-wrapper">
+  <div class="form-container">
+    <h2>Publicar Novo Projeto</h2>
+    <p>Descreva seu projeto para que os melhores freelancers possam encontrá-lo.</p>
+    
+    <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="title">Título do Projeto</label>
+        <input type="text" id="title" formControlName="title" class="form-control" placeholder="Ex: Criação de um website para minha loja">
+      </div>
 
-    <div class="input-group">
-      <label for="description">Descrição Detalhada</label>
-      <textarea id="description" formControlName="description" rows="6" placeholder="Descreva o que precisa ser feito, requisitos, etc."></textarea>
-    </div>
+      <div class="form-group">
+        <label for="description">Descrição Detalhada</label>
+        <textarea id="description" formControlName="description" rows="8" class="form-control" placeholder="Descreva os objetivos, escopo e requisitos do seu projeto..."></textarea>
+      </div>
 
-    <div class="input-group">
-      <label for="budget">Orçamento (R$)</label>
-      <input id="budget" type="number" formControlName="budget" placeholder="5000.00">
-    </div>
+      <div class="form-group">
+        <label for="budget">Orçamento (R$)</label>
+        <input type="number" id="budget" formControlName="budget" class="form-control" placeholder="5000">
+      </div>
 
-    <div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
-    <div *ngIf="errorMessage" class="alert alert-error">{{ errorMessage }}</div>
+      <div class="form-group">
+        <label for="skills">Habilidades Necessárias</label>
+        <input type="text" id="skills" formControlName="skills" class="form-control" placeholder="Ex: Angular, PHP, Laravel, Design Gráfico">
+        <small>Separe as habilidades por vírgula.</small>
+      </div>
 
-    <button type="submit" class="btn-submit" [disabled]="projectForm.invalid">Publicar Projeto</button>
-  </form>
+      <div *ngIf="errorMessage" class="feedback-error">
+        {{ errorMessage }}
+      </div>
+      <div *ngIf="successMessage" class="feedback-success"> {{ successMessage }}
+      </div>
+
+      <button type="submit" class="btn btn-primary" [disabled]="projectForm.invalid">Publicar Projeto</button>
+    </form>
+  </div>
 </div>

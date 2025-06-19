@@ -1,0 +1,55 @@
+<div class="dashboard-container">
+  <!-- Menu Lateral -->
+  <aside class="dashboard-sidebar">
+    <div class="user-profile">
+      <div class="avatar">{{ user?.name?.charAt(0) }}</div>
+      <h3>{{ user?.name }}</h3>
+      <p>{{ user?.email }}</p>
+    </div>
+    <nav class="dashboard-nav">
+      <a routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Visão Geral</a>
+      
+      <!-- Links para Empresa -->
+      <ng-container *ngIf="isCompany">
+        <a routerLink="/projects/create" routerLinkActive="active">Publicar Novo Projeto</a>
+        <a routerLink="/minha-empresa/projetos" routerLinkActive="active">Meus Projetos</a>
+      </ng-container>
+
+      <!-- Links para Freelancer -->
+      <ng-container *ngIf="!isCompany">
+        <a routerLink="/projects" routerLinkActive="active">Explorar Projetos</a>
+        <a routerLink="/minhas-candidaturas" routerLinkActive="active">Minhas Candidaturas</a>
+      </ng-container>
+
+      <a (click)="logout()">Sair</a>
+    </nav>
+  </aside>
+
+  <!-- Conteúdo Principal -->
+  <main class="dashboard-content">
+    <h1>Visão Geral da sua Conta</h1>
+    <p class="welcome">Aqui estão os detalhes do seu perfil.</p>
+
+    <div class="details-card">
+      <div class="details-header">
+        <h3>Suas Informações</h3>
+      </div>
+      <div class="details-body">
+        <ng-container *ngIf="user?.freelancer as freelancerProfile">
+          <div class="detail-item"><span>Nome Completo:</span> {{ user?.name }}</div>
+          <div class="detail-item"><span>CPF:</span> {{ freelancerProfile.cpf }}</div>
+          <div class="detail-item"><span>Data de Nascimento:</span> {{ freelancerProfile.data_nascimento | date:'dd/MM/yyyy' }}</div>
+          <div class="detail-item"><span>Telefone:</span> {{ freelancerProfile.telefone }}</div>
+        </ng-container>
+
+        <ng-container *ngIf="user?.company as companyProfile">
+          <div class="detail-item"><span>Nome Fantasia:</span> {{ user?.name }}</div>
+          <div class="detail-item"><span>Razão Social:</span> {{ companyProfile.razao_social }}</div>
+          <div class="detail-item"><span>CNPJ:</span> {{ companyProfile.cnpj }}</div>
+          <div class="detail-item"><span>Data de Fundação:</span> {{ companyProfile.data_fundacao | date:'dd/MM/yyyy' }}</div>
+          <div class="detail-item"><span>Telefone:</span> {{ companyProfile.telefone }}</div>
+        </ng-container>
+      </div>
+    </div>
+  </main>
+</div>
