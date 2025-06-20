@@ -91,3 +91,76 @@ a:hover { color: var(--color-primary); }
   font-size: 0.875rem;
   margin-top: 0.25rem;
 }
+/* ========================================= */
+/* --- Estilos Globais para Cards          --- */
+/* ========================================= */
+
+/* Estilo para os cards de PROJETO (usado em /projects, /my-projects) */
+.project-card {
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 20px 25px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+  display: block; /* Garante que o card ocupe a largura */
+  text-decoration: none; /* Remove sublinhado se o card for um link */
+  color: inherit; /* Herda a cor do texto padrão */
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.project-card h2, .project-card h3 {
+  margin-top: 0;
+  color: #007bff;
+  margin-bottom: 10px;
+}
+
+.project-card .project-budget {
+  font-weight: bold;
+  color: #28a745;
+  margin-bottom: 15px;
+}
+
+.project-card .project-description {
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.project-card .details-link {
+  font-weight: bold;
+  color: #007bff;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: auto; /* Alinha o link na parte inferior do card */
+}
+
+/* Estilo para os cards de PROPOSTA (usado em /project-detail) */
+.proposal-card {
+  background: #f8f9fa;
+  border: 1px solid #ddd;
+  padding: 20px;
+  margin-top: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.proposal-card p {
+  margin: 5px 0;
+  color: #333;
+}
+
+.proposal-card .proposal-message {
+  font-style: italic;
+  color: #555;
+  margin-top: 10px;
+  padding: 10px;
+  border-left: 3px solid #007bff;
+  background-color: #fff;
+}

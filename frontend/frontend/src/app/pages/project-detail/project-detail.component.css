@@ -90,3 +90,79 @@
     color: #555;
     margin-top: 10px;
 }
+/* Usando :host para garantir que os estilos do componente sejam aplicados */
+:host .project-detail-card {
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05); /* Sombra suave para destaque */
+}
+
+:host .project-header h1 {
+  margin-top: 0;
+  font-size: 2.5rem;
+  color: #333;
+}
+
+:host .company-name {
+  font-size: 1.1rem;
+  color: #6c757d;
+  margin-bottom: 1rem;
+}
+
+:host .budget {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #28a745;
+}
+
+:host .project-body h3 {
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.5rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+:host .proposals-section {
+  margin-top: 2rem;
+}
+
+:host .proposals-section h3 {
+  font-size: 1.8rem;
+}
+
+:host .proposal-card {
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-left: 5px solid #007bff;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+}
+
+:host .proposal-message {
+  font-style: italic;
+  color: #555;
+  margin-top: 0.5rem;
+}
+
+:host .empty-message, :host .loading-message {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #777;
+  padding: 2rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+:host .feedback-alert {
+  text-align: center;
+  padding: 1rem;
+  margin-top: 1rem;
+  border-radius: 5px;
+  background-color: #d1ecf1;
+  color: #0c5460;
+  border: 1px solid #bee5eb;
+}
