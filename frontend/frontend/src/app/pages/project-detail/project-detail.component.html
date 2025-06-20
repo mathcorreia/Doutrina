@@ -1,49 +1,15 @@
-<div class="container" *ngIf="!isLoading; else loading">
-  <div *ngIf="project; else notFound">
-    <div class="project-detail-card">
-      <div class="project-header">
-        <h1>{{ project.title }}</h1>
-        <p class="company-name">Publicado por: <strong>{{ project.company.user.name }}</strong></p>
-        <div class="budget">Orçamento: R$ {{ project.budget | number:'1.2-2' }}</div>
-      </div>
-      <div class="project-body">
-        <h3>Descrição do Projeto</h3>
-        <p>{{ project.description }}</p>
-      </div>
-    </div>
-    <div class="proposals-section">
-      <h3>Propostas</h3>
-      <hr>
-      <div *ngIf="isFreelancer && !isOwner" class="proposal-form-container">
-        <h4>Envie sua Proposta</h4>
-        <form [formGroup]="proposalForm" (ngSubmit)="onProposalSubmit()">
-          <div class="input-group">
-            <label for="valor">Sua Oferta (R$)</label>
-            <input id="valor" type="number" formControlName="valor" placeholder="Ex: 1500.00">
-          </div>
-          <div class="input-group">
-            <label for="mensagem">Por que você é a pessoa certa para este projeto?</label>
-            <textarea id="mensagem" formControlName="mensagem_proposta" rows="5" placeholder="Descreva sua experiência e como você pode ajudar."></textarea>
-          </div>
-          <button type="submit" class="btn-submit" [disabled]="proposalForm.invalid">Enviar Proposta</button>
-        </form>
-      </div>
-      <div *ngIf="isOwner">
+<div *ngIf="isOwner">
         <div *ngIf="project.proposals.length > 0; else noProposals">
+          
           <div *ngFor="let proposal of project.proposals" class="proposal-card">
             <p><strong>Candidato:</strong> {{ proposal.freelancer.user.name }}</p>
+            
+            <p><strong>E-mail para contato:</strong> <a [href]="'mailto:' + proposal.freelancer.user.email">{{ proposal.freelancer.user.email }}</a></p>
+            
             <p><strong>Valor da Proposta:</strong> R$ {{ proposal.valor | number:'1.2-2' }}</p>
             <p class="proposal-message">"{{ proposal.mensagem_proposta }}"</p>
           </div>
+          
         </div>
         <ng-template #noProposals><p class="empty-message">Nenhuma proposta recebida ainda.</p></ng-template>
       </div>
-      <div *ngIf="!isOwner && !isFreelancer">
-        <p class="empty-message">Faça login como freelancer para enviar uma proposta ou como a empresa para ver as propostas recebidas.</p>
-      </div>
-    </div>
-  </div>
-  <div *ngIf="feedbackMessage" class="feedback-alert">{{ feedbackMessage }}</div>
-  <ng-template #notFound><p>Projeto não encontrado.</p></ng-template>
-</div>
-<ng-template #loading><p class="loading-message">Carregando...</p></ng-template>
