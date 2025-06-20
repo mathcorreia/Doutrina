@@ -1,0 +1,23 @@
+<div class="container">
+  <h1>Meus Projetos Publicados</h1>
+  <hr>
+
+  <div *ngIf="isLoading" class="loading-message">Carregando projetos...</div>
+  <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+
+  <div *ngIf="!isLoading && !errorMessage">
+    <div *ngIf="projects.length > 0; else noProjects">
+      <div class="project-list">
+        <div *ngFor="let project of projects" class="project-card" [routerLink]="['/projects', project.id]">
+          <h2>{{ project.title }}</h2>
+          <p class="project-budget">Orçamento: R$ {{ project.budget | number:'1.2-2' }}</p>
+          <p class="project-description">{{ project.description | slice:0:150 }}...</p>
+          <a class="details-link">Ver Detalhes e Propostas</a>
+        </div>
+      </div>
+    </div>
+    <ng-template #noProjects>
+      <p class="empty-message">Você ainda não publicou nenhum projeto. <a routerLink="/projects/create">Crie um agora!</a></p>
+    </ng-template>
+  </div>
+</div>

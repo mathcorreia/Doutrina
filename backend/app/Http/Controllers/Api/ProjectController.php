@@ -2,61 +2,54 @@
 
 namespace App\Http\Controllers\Api;
 
+// 1. Importe o Controller base e o Facade Auth
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+
 use App\Models\Project;
 use Illuminate\Http\Request;
 
+// 2. O controller deve estender o 'Controller' base, e não o AuthController
 class ProjectController extends Controller
 {
     public function index()
     {
-        // O método index também pode carregar o nome da empresa para a listagem
         return Project::with('company.user')->latest()->get();
     }
 
-    public function store(Request $request)
-    {
-        $validatedData = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'budget' => 'required|numeric',
-            'company_id' => 'required|exists:companies,id'
-        ]);
+   public function store(Request $request)
+{
+    $validatedData = $request->validate([
+        'title' => 'required|string|max:255',
+        'description' => 'required|string',
+        'budget' => 'required|numeric|min:0',
+    ]);
 
-        $project = Project::create($validatedData);
-        return response()->json($project, 201);
+    $user = Auth::user();
+
+    if (!$user || !$user->company) {
+        return response()->json(['message' => 'Ação não autorizada ou perfil de empresa não encontrado.'], 403);
     }
 
-    /**
-     * Display the specified resource.
-     */
+    $validatedData['company_id'] = $user->company->id;
+    $validatedData['skills'] = ''; // Adiciona uma string vazia para satisfazer o NOT NULL
+
+    $project = Project::create($validatedData);
+
+    return response()->json($project, 201);
+}
+
     public function show(string $id)
     {
-        // --- MODIFICAÇÃO PRINCIPAL AQUI ---
-        // Carrega o projeto com seus relacionamentos:
-        // 1. 'company.user' para pegar os dados da empresa e do usuário dono.
-        // 2. 'proposals.freelancer.user' para pegar as propostas, 
-        //    o perfil do freelancer e os dados do usuário do freelancer.
         $project = Project::with(['company.user', 'proposals.freelancer.user'])->findOrFail($id);
-
         return response()->json($project);
     }
-
-    public function update(Request $request, Project $project)
+    
+    public function myProjects(Request $request)
     {
-        $validatedData = $request->validate([
-            'title' => 'sometimes|required|string|max:255',
-            'description' => 'sometimes|required|string',
-            'budget' => 'sometimes|required|numeric',
-        ]);
-
-        $project->update($validatedData);
-        return response()->json($project);
-    }
-
-    public function destroy(Project $project)
-    {
-        $project->delete();
-        return response()->json(null, 204);
+        $user = Auth::user(); // Use Auth::user() aqui também
+        $companyId = $user->company->id;
+        $projects = Project::where('company_id', $companyId)->latest()->get();
+        return response()->json($projects);
     }
 }

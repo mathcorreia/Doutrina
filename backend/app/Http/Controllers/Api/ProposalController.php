@@ -2,31 +2,36 @@
 
 namespace App\Http\Controllers\Api;
 
+// 1. Importe o Controller base e o Facade Auth
 use App\Http\Controllers\Controller;
-use App\Models\Proposal;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use App\Models\Proposal;
+use Illuminate\Http\Request;
+
+// 2. O controller deve estender o 'Controller' base
 class ProposalController extends Controller
 {
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        // --- CORREÇÃO AQUI ---
-        // A validação deve corresponder aos campos enviados pelo Angular
         $validatedData = $request->validate([
             'project_id' => 'required|exists:projects,id',
             'valor' => 'required|numeric|min:0',
-            'mensagem_proposta' => 'required|string|min:10', // Garante que o campo correto seja validado
-            'freelancer_id' => 'required|exists:freelancers,id' // Adiciona a validação para o freelancer
+            'mensagem_proposta' => 'required|string|min:10',
         ]);
 
-        // Associa o ID do usuário autenticado (se necessário) ou usa o freelancer_id validado
-        $proposal = Proposal::create($validatedData);
+        // 3. Obtenha o usuário da forma correta
+        $user = Auth::user();
 
-        // Carrega a relação com o usuário para retornar na resposta
+        // 4. Verificação de segurança para o freelancer
+        if (!$user || !$user->freelancer) {
+            return response()->json(['message' => 'Ação não autorizada ou perfil de freelancer não encontrado.'], 403);
+        }
+
+        // 5. Adicione o freelancer_id automaticamente
+        $validatedData['freelancer_id'] = $user->freelancer->id;
+        
+        $proposal = Proposal::create($validatedData);
         $proposal->load('freelancer.user');
 
         return response()->json($proposal, 201);

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ProjectService } from '../../services/project.service';
@@ -22,33 +22,34 @@ export class ProjectDetailComponent implements OnInit {
   isLoading = true;
   feedbackMessage: string | null = null;
 
-  constructor(
+ constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private projectService: ProjectService,
-    public authService: AuthService,
     private proposalService: ProposalService,
+    public authService: AuthService, 
     private fb: FormBuilder
-  ) {}
+  )  {}
 
   ngOnInit(): void {
-    const projectId = this.route.snapshot.paramMap.get('id');
+    // Busca o usuário logado
+    this.currentUser = this.authService.getCurrentUser();
 
+    // Define o tipo de usuário (freelancer ou não)
+    this.isFreelancer = this.currentUser?.user_type === 'freelancer';
+
+    // Pega o ID do projeto da URL e carrega os detalhes
+    const projectId = this.route.snapshot.paramMap.get('id');
     if (projectId) {
       this.loadProjectDetails(projectId);
     } else {
       this.isLoading = false;
-      this.feedbackMessage = "Erro: ID do projeto não encontrado na URL.";
+      this.feedbackMessage = "ID do projeto não encontrado.";
     }
 
-    this.currentUser = this.authService.getCurrentUser();
-    if (this.currentUser) {
-        this.isFreelancer = this.currentUser.user_type === 'freelancer';
-    }
-
+    // Inicializa o formulário de proposta
     this.proposalForm = this.fb.group({
       valor: ['', [Validators.required, Validators.min(1)]],
-      mensagem_proposta: ['', Validators.required]
+      mensagem_proposta: ['', [Validators.required, Validators.minLength(10)]]
     });
   }
 
@@ -56,13 +57,17 @@ export class ProjectDetailComponent implements OnInit {
     this.projectService.getProjectById(id).subscribe({
       next: (data) => {
         this.project = data;
-        if (this.currentUser && this.currentUser.company) {
-          // Garante que a verificação de "dono" seja feita apenas se o projeto e a empresa existirem
-          this.isOwner = this.currentUser.company.id === this.project?.company_id;
+
+        // LÓGICA CORRIGIDA: Define se é o dono do projeto
+        // Reseta para 'false' e só define como 'true' se a condição for atendida
+        this.isOwner = false;
+        if (this.currentUser?.user_type === 'company' && this.currentUser.company?.id === this.project?.company_id) {
+          this.isOwner = true;
         }
+        
         this.isLoading = false;
       },
-      error: (err) => {
+      error: (err: any) => {
         this.isLoading = false;
         this.feedbackMessage = "Ocorreu um erro ao carregar o projeto.";
         console.error(err);
@@ -71,40 +76,30 @@ export class ProjectDetailComponent implements OnInit {
   }
 
   onProposalSubmit(): void {
+    this.feedbackMessage = null;
     if (this.proposalForm.invalid) {
-      this.feedbackMessage = "Por favor, preencha todos os campos da proposta.";
+      this.feedbackMessage = "Por favor, preencha todos os campos da proposta corretamente.";
       return;
     }
-    // Garante que o usuário atual e o perfil de freelancer existem antes de continuar
-    if (!this.isFreelancer || !this.currentUser?.freelancer?.id) {
-      this.feedbackMessage = "Você precisa estar logado como freelancer para enviar uma proposta.";
-      return;
-    }
+
     const proposalData = {
       ...this.proposalForm.value,
-      project_id: this.project.id,
-      freelancer_id: this.currentUser.freelancer.id
+      project_id: this.project.id
     };
 
     this.proposalService.createProposal(proposalData).subscribe({
-      next: (newProposal) => {
+      next: (newProposal: any) => {
         this.feedbackMessage = 'Proposta enviada com sucesso!';
-        // Adiciona a nova proposta à lista existente para atualização da UI em tempo real
-        if (this.project && this.project.proposals) {
-            this.project.proposals.push(newProposal);
+        if (this.project.proposals) {
+          this.project.proposals.push(newProposal);
+        } else {
+          this.project.proposals = [newProposal];
         }
         this.proposalForm.reset();
       },
-      error: (err) => {
-          console.error('Erro detalhado do backend:', err.error); // Linha de debug
-          
-          if (err.status === 422 && err.error.errors) {
-            // Pega a primeira mensagem de erro de validação para exibir ao usuário
-            const firstErrorKey = Object.keys(err.error.errors)[0];
-            this.feedbackMessage = err.error.errors[firstErrorKey][0];
-          } else {
-            this.feedbackMessage = 'Ocorreu um erro inesperado ao enviar a proposta. Tente novamente.';
-          }
+      error: (err: any) => {
+        this.feedbackMessage = err.error?.message || 'Erro ao enviar proposta.';
+        console.error(err);
       }
     });
   }

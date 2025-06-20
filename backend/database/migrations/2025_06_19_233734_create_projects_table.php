@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('description');
             $table->decimal('budget', 10, 2);
-            $table->text('skills'); // Alterado para text para permitir mais caracteres
+            $table->text('skills'); 
             $table->string('status')->default('aberto');
             $table->timestamps();
         });
