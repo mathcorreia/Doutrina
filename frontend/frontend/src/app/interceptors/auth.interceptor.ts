@@ -1,17 +1,30 @@
-import { HttpInterceptorFn } from '@angular/common/http';
+import { HttpEvent, HttpHandlerFn, HttpInterceptorFn, HttpRequest } from '@angular/common/http';
+import { inject } from '@angular/core';
+import { Observable } from 'rxjs';
+import { AuthService } from '../services/auth.service';
 
-export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  // Pega o token de autenticação do localStorage
-  const authToken = localStorage.getItem('freelahub_token');
+/**
+ * Este é o interceptor de autenticação.
+ * Ele será executado para cada requisição HTTP que sair do seu app.
+ */
+export const authInterceptor: HttpInterceptorFn = (
+  req: HttpRequest<unknown>,
+  next: HttpHandlerFn
+): Observable<HttpEvent<unknown>> => {
+  
+  const authService = inject(AuthService);
+  const token = authService.getToken(); // Pega o token salvo no AuthService
 
-  // Se o token existir, clona a requisição e adiciona o cabeçalho de autorização
-  if (authToken) {
-    const authReq = req.clone({
-      headers: req.headers.set('Authorization', `Bearer ${authToken}`)
+  // Se o token existir no localStorage...
+  if (token) {
+    // Clona a requisição original e adiciona o cabeçalho de Autorização
+    const cloned = req.clone({
+      headers: req.headers.set('Authorization', `Bearer ${token}`),
     });
-    // Continua com a requisição modificada
-    return next(authReq);
+    // Envia a requisição clonada (com o token) para o backend
+    return next(cloned);
   }
-  // Se não houver token, continua com a requisição original
+
+  // Se não houver token, envia a requisição original sem modificação
   return next(req);
-}
+};

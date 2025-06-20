@@ -57,6 +57,7 @@ export class ProjectDetailComponent implements OnInit {
       next: (data) => {
         this.project = data;
         if (this.currentUser && this.currentUser.company) {
+          // Garante que a verificação de "dono" seja feita apenas se o projeto e a empresa existirem
           this.isOwner = this.currentUser.company.id === this.project?.company_id;
         }
         this.isLoading = false;
@@ -64,6 +65,7 @@ export class ProjectDetailComponent implements OnInit {
       error: (err) => {
         this.isLoading = false;
         this.feedbackMessage = "Ocorreu um erro ao carregar o projeto.";
+        console.error(err);
       }
     });
   }
@@ -73,6 +75,7 @@ export class ProjectDetailComponent implements OnInit {
       this.feedbackMessage = "Por favor, preencha todos os campos da proposta.";
       return;
     }
+    // Garante que o usuário atual e o perfil de freelancer existem antes de continuar
     if (!this.isFreelancer || !this.currentUser?.freelancer?.id) {
       this.feedbackMessage = "Você precisa estar logado como freelancer para enviar uma proposta.";
       return;
@@ -82,16 +85,26 @@ export class ProjectDetailComponent implements OnInit {
       project_id: this.project.id,
       freelancer_id: this.currentUser.freelancer.id
     };
+
     this.proposalService.createProposal(proposalData).subscribe({
       next: (newProposal) => {
         this.feedbackMessage = 'Proposta enviada com sucesso!';
+        // Adiciona a nova proposta à lista existente para atualização da UI em tempo real
         if (this.project && this.project.proposals) {
             this.project.proposals.push(newProposal);
         }
         this.proposalForm.reset();
       },
       error: (err) => {
-          this.feedbackMessage = 'Erro ao enviar proposta. Tente novamente.';
+          console.error('Erro detalhado do backend:', err.error); // Linha de debug
+          
+          if (err.status === 422 && err.error.errors) {
+            // Pega a primeira mensagem de erro de validação para exibir ao usuário
+            const firstErrorKey = Object.keys(err.error.errors)[0];
+            this.feedbackMessage = err.error.errors[firstErrorKey][0];
+          } else {
+            this.feedbackMessage = 'Ocorreu um erro inesperado ao enviar a proposta. Tente novamente.';
+          }
       }
     });
   }

@@ -11,9 +11,6 @@ class Project extends Model
 {
     use HasFactory;
 
-    // Timestamps 'created_at' e 'updated_at' já são gerenciados pelo trigger do DB.
-    // O Laravel os reconhecerá automaticamente.
-
     /**
      * The attributes that are mass assignable.
      *
@@ -25,10 +22,11 @@ class Project extends Model
         'description',
         'budget',
         'status',
+        'skills', // Corrigido de 'skills_required' para 'skills'
     ];
 
     /**
-     * Obtém a empresa que postou o projeto.
+     * Get the company that owns the project.
      */
     public function company(): BelongsTo
     {
@@ -36,18 +34,10 @@ class Project extends Model
     }
 
     /**
-     * Obtém todas as propostas para este projeto.
+     * Get the proposals for the project.
      */
     public function proposals(): HasMany
     {
         return $this->hasMany(Proposal::class);
-    }
-
-    /**
-     * Obtém todas as avaliações para este projeto.
-     */
-    public function reviews(): HasMany
-    {
-        return $this->hasMany(Review::class);
     }
 }

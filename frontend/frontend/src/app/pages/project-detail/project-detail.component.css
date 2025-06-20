@@ -1,46 +1,92 @@
-.project-detail-card {
-  background-color: #fff;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  padding: 2rem;
-  margin-bottom: 2rem;
-}
-
-.project-header h1 {
-  margin-top: 0;
-}
-
+/* Estilo para a seção de propostas e o formulário */
 .proposals-section {
-  margin-top: 2rem;
+  margin-top: 30px;
 }
 
-.proposal-card {
+.proposal-form-container {
   background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 25px;
+  margin-top: 20px;
   border: 1px solid #e0e0e0;
-  border-left: 5px solid #007bff;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
 }
 
-.proposal-message {
-  font-style: italic;
+.proposal-form-container h4 {
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 1.5em;
+  font-weight: 600;
+}
+
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
   color: #555;
 }
 
-.empty-message, .loading-message {
-  text-align: center;
-  font-size: 1.1rem;
-  color: #777;
-  padding: 2rem;
+.input-group input,
+.input-group textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1em;
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-.feedback-alert {
-  text-align: center;
-  padding: 1rem;
-  margin-top: 1rem;
-  border-radius: 5px;
-  background-color: #d1ecf1;
-  color: #0c5460;
-  border: 1px solid #bee5eb;
+.input-group input:focus,
+.input-group textarea:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+}
+
+.btn-submit {
+  width: 100%;
+  padding: 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn-submit:hover:not(:disabled) {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+.btn-submit:disabled {
+  background-color: #a0c3e0;
+  cursor: not-allowed;
+}
+
+/* Estilos para o card de propostas recebidas (bônus) */
+.proposal-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 20px;
+  margin-top: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.proposal-card p {
+    margin: 5px 0;
+}
+
+.proposal-message {
+    font-style: italic;
+    color: #555;
+    margin-top: 10px;
 }
