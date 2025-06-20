@@ -23,19 +23,18 @@ export class ProjectCreateComponent implements OnInit {
     private authService: AuthService,
     private router: Router
   ) {
-    // CORREÇÃO PRINCIPAL: Adicionando o controle 'skills' ao formulário
+    // Formulário sem 'skills' para evitar o erro 'Cannot find control'
     this.projectForm = this.fb.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
-      budget: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
-      skills: ['', Validators.required] // <-- ESTA LINHA CORRIGE O ERRO DO ANGULAR
+      budget: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]]
     });
   }
 
   ngOnInit(): void {
     const currentUser = this.authService.getCurrentUser();
     if (!currentUser || currentUser.user_type !== 'company') {
-      this.errorMessage = 'Você deve estar logado como uma empresa para acessar esta página.';
+      this.errorMessage = 'Você precisa estar logado como uma empresa para acessar esta página.';
     }
   }
 
@@ -45,24 +44,29 @@ export class ProjectCreateComponent implements OnInit {
 
     if (this.projectForm.invalid) {
       this.projectForm.markAllAsTouched();
-      this.errorMessage = 'Por favor, preencha todos os campos corretamente.';
+      this.errorMessage = 'Por favor, preencha todos os campos obrigatórios.';
       return;
     }
 
-    const projectData = this.projectForm.value;
-
-    this.projectService.createProject(projectData).subscribe({
+    // Envia APENAS os dados do formulário para a API
+    this.projectService.createProject(this.projectForm.value).subscribe({
       next: (response) => {
         this.successMessage = 'Projeto criado com sucesso! Redirecionando...';
         this.projectForm.reset();
-        
         setTimeout(() => {
           this.router.navigate(['/projects', response.id]);
         }, 2000);
       },
       error: (err) => {
         console.error("Resposta completa do erro:", err);
-        this.errorMessage = err.error?.message || 'Ocorreu um erro inesperado. Tente novamente.';
+        // Tratamento de erro melhorado para mostrar a mensagem exata do backend
+        if (err.status === 422 && err.error.errors) {
+          const errors = err.error.errors;
+          const errorMessages = Object.keys(errors).map(key => errors[key].join(', '));
+          this.errorMessage = `Erro de validação: ${errorMessages.join(' ')}`;
+        } else {
+          this.errorMessage = err.error?.message || 'Ocorreu um erro inesperado ao criar o projeto.';
+        }
       }
     });
   }

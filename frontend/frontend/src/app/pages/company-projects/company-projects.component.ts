@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../../services/project.service';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router'; // Importe o RouterModule
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-company-projects',
   standalone: true,
-  imports: [CommonModule, RouterModule], // Adicione CommonModule e RouterModule
+  imports: [CommonModule, RouterModule],
   templateUrl: './company-projects.component.html',
   styleUrls: ['./company-projects.component.css']
 })
@@ -19,14 +19,20 @@ export class CompanyProjectsComponent implements OnInit {
 
   ngOnInit(): void {
     this.projectService.getMyProjects().subscribe({
-      next: (data) => {
+      next: (data: any[]) => {
         this.projects = data;
         this.isLoading = false;
       },
-      error: (err) => {
-        this.errorMessage = 'Ocorreu um erro ao carregar seus projetos.';
+      error: (err: any) => {
+        // AQUI ESTÁ A LÓGICA DE ERRO MELHORADA
         this.isLoading = false;
-        console.error(err);
+        // Se o backend enviar uma mensagem de erro específica (como o 403), vamos exibi-la.
+        if (err.error && err.error.message) {
+            this.errorMessage = `Erro: ${err.error.message}`;
+        } else {
+            this.errorMessage = 'Ocorreu um erro ao carregar seus projetos.';
+        }
+        console.error('Erro detalhado da API:', err);
       }
     });
   }

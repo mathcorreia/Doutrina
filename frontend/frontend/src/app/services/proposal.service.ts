@@ -13,4 +13,9 @@ export class ProposalService {
   createProposal(proposalData: any): Observable<any> {
     return this.http.post(this.apiUrl, proposalData);
   }
+
+  // MÉTODO ADICIONADO AQUI
+  getMyProposals(): Observable<any> {
+    return this.http.get('http://127.0.0.1:8000/api/my-proposals');
+  }
 }

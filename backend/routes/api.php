@@ -14,4 +14,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::apiResource('/projects', ProjectController::class);
     Route::post('/proposals', [ProposalController::class, 'store']);
+     Route::get('/my-proposals', [ProposalController::class, 'myProposals'])->middleware('can:isFreelancer');
+         Route::get('/my-projects', [ProjectController::class, 'myProjects'])->middleware('can:isCompany');
+
 });

@@ -4,16 +4,10 @@ import { RouterModule, Router, ActivatedRoute } from '@angular/router';
 import { AbstractControl, FormBuilder, FormGroup, Validators, ReactiveFormsModule, ValidationErrors } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 
-// Validador customizado para comparar as senhas
 export function passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
   const password = control.get('password');
   const passwordConfirmation = control.get('password_confirmation');
-  
-  if (password && passwordConfirmation && password.value !== passwordConfirmation.value) {
-    return { passwordMismatch: true };
-  }
-  
-  return null;
+  return (password && passwordConfirmation && password.value !== passwordConfirmation.value) ? { passwordMismatch: true } : null;
 };
 
 @Component({
@@ -44,53 +38,46 @@ export class SignupComponent implements OnInit {
   }
 
   initializeForm(): void {
-    let formConfig: any;
+    // Lógica unificada para criar o formulário
+    this.signupForm = this.fb.group({
+      user_type: [this.userType],
+      name: ['', Validators.required], // 'name' é a base para ambos os tipos
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
+      password_confirmation: ['', Validators.required],
+      telefone: ['', Validators.required],
+    }, { validators: passwordMatchValidator });
 
     if (this.userType === 'company') {
-      formConfig = {
-        user_type: ['company'],
-        companyName: ['', Validators.required],
-        razao_social: ['', Validators.required],
-        cnpj: ['', Validators.required],
-        data_fundacao: [''],
-        telefone: [''],
-        email: ['', [Validators.required, Validators.email]],
-        password: ['', [Validators.required, Validators.minLength(8)]],
-        password_confirmation: ['', Validators.required]
-      };
+      this.signupForm.addControl('razao_social', this.fb.control('', Validators.required));
+      this.signupForm.addControl('cnpj', this.fb.control('', Validators.required));
+      this.signupForm.addControl('data_fundacao', this.fb.control('', Validators.required));
     } else { // Freelancer
-      formConfig = {
-        user_type: ['freelancer'],
-        name: ['', Validators.required],
-        cpf: ['', Validators.required],
-        data_nascimento: [''],
-        telefone: [''],
-        email: ['', [Validators.required, Validators.email]],
-        password: ['', [Validators.required, Validators.minLength(8)]],
-        password_confirmation: ['', Validators.required]
-      };
+      this.signupForm.addControl('cpf', this.fb.control('', Validators.required));
+      this.signupForm.addControl('data_nascimento', this.fb.control('', Validators.required));
     }
-    // Adiciona o validador customizado no nível do formulário
-    this.signupForm = this.fb.group(formConfig, { validators: passwordMatchValidator });
   }
 
   onSubmit(): void {
     if (this.signupForm.invalid) {
       this.signupForm.markAllAsTouched();
+      this.errorMessage = "Por favor, preencha todos os campos obrigatórios.";
       return;
     }
-    
-    const formData = this.signupForm.value;
-    if (formData.companyName) {
-      formData.name = formData.companyName;
-    }
 
-    this.authService.register(formData).subscribe({
+    this.authService.register(this.signupForm.value).subscribe({
       next: (response) => {
         this.router.navigate(['/login']);
       },
       error: (err) => {
-        this.errorMessage = 'Erro ao cadastrar. Verifique os dados.';
+        // Lógica para mostrar o erro exato da validação do backend
+        if (err.status === 422 && err.error.errors) {
+            const errors = err.error.errors;
+            const firstErrorField = Object.keys(errors)[0];
+            this.errorMessage = errors[firstErrorField][0];
+        } else {
+            this.errorMessage = err.error?.message || 'Erro ao cadastrar. Verifique os dados.';
+        }
         console.error(err);
       }
     });

@@ -1,5 +1,4 @@
 <div class="dashboard-container">
-  <!-- Menu Lateral -->
   <aside class="dashboard-sidebar">
     <div class="user-profile">
       <div class="avatar">{{ user?.name?.charAt(0) }}</div>
@@ -9,23 +8,20 @@
     <nav class="dashboard-nav">
       <a routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Visão Geral</a>
       
-      <!-- Links para Empresa -->
       <ng-container *ngIf="isCompany">
         <a routerLink="/projects/create" routerLinkActive="active">Publicar Novo Projeto</a>
-        <a routerLink="/minha-empresa/projetos" routerLinkActive="active">Meus Projetos</a>
+        <a routerLink="/my-projects" routerLinkActive="active">Meus Projetos</a>
       </ng-container>
 
-      <!-- Links para Freelancer -->
       <ng-container *ngIf="!isCompany">
         <a routerLink="/projects" routerLinkActive="active">Explorar Projetos</a>
-        <a routerLink="/minhas-candidaturas" routerLinkActive="active">Minhas Candidaturas</a>
+        <a routerLink="/my-proposals" routerLinkActive="active">Minhas Candidaturas</a>
       </ng-container>
 
-      <a (click)="logout()">Sair</a>
+      <a (click)="logout()" class="logout-button">Sair</a>
     </nav>
   </aside>
 
-  <!-- Conteúdo Principal -->
   <main class="dashboard-content">
     <h1>Visão Geral da sua Conta</h1>
     <p class="welcome">Aqui estão os detalhes do seu perfil.</p>

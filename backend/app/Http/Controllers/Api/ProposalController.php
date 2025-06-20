@@ -36,4 +36,22 @@ class ProposalController extends Controller
 
         return response()->json($proposal, 201);
     }
+    public function myProposals(Request $request)
+    {
+        $user = Auth::user();
+
+        if (!$user || !$user->freelancer) {
+            return response()->json(['message' => 'Usuário não autenticado ou sem perfil de freelancer.'], 403);
+        }
+
+        $freelancerId = $user->freelancer->id;
+
+        // Busca as propostas do freelancer e carrega os dados do projeto associado
+        $proposals = Proposal::with('project')
+                                ->where('freelancer_id', $freelancerId)
+                                ->latest()
+                                ->get();
+        
+        return response()->json($proposals);
+    }
 }

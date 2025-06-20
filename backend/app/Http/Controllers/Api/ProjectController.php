@@ -47,9 +47,22 @@ class ProjectController extends Controller
     
     public function myProjects(Request $request)
     {
-        $user = Auth::user(); // Use Auth::user() aqui também
+        // Pega o usuário autenticado
+        $user = Auth::user();
+
+        // Garante que o usuário tem um perfil de empresa
+        if (!$user || !$user->company) {
+            return response()->json(['message' => 'Usuário não autenticado ou sem perfil de empresa.'], 403);
+        }
+        
+        // Pega o ID da empresa do usuário
         $companyId = $user->company->id;
-        $projects = Project::where('company_id', $companyId)->latest()->get();
+        
+        // Busca no banco de dados todos os projetos com esse company_id
+        $projects = Project::where('company_id', $companyId)
+                            ->latest() // Ordena pelos mais recentes
+                            ->get();
+
         return response()->json($projects);
     }
 }
