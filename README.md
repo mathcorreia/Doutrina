@@ -37,10 +37,10 @@ Autenticação Segura: Cadastro e Login específicos para freelancers.
 Visualização de Oportunidades: Navegação em uma lista de projetos disponíveis.
 Envio de Propostas: Formulário para enviar propostas com valor e mensagem de apresentação.
 Perfil Personalizado: Base para futuras implementações, como upload de foto de perfil.
-📂 Estrutura do Projeto
+```
+ 📂 Estrutura do Projeto
 O projeto é organizado em duas pastas principais: backend e frontend, permitindo um desenvolvimento desacoplado.
 
-'''
 📁 FreelaHub/
 ├── 📁 backend/         # Contém a aplicação Laravel (API)
 │   ├── app/
@@ -62,7 +62,7 @@ O projeto é organizado em duas pastas principais: backend e frontend, permitind
         │   ├── assets/
         │   └── styles.css      # Estilos globais
         └── ...
-'''
+```
         
 ## 🛠️ Instalação e Execução
 
@@ -76,7 +76,7 @@ Angular CLI (npm install -g @angular/cli)
 
 ## 1. Configuração do Backend (API Laravel)
 Bash
-
+```
 ### 1. Navegue até a pasta do backend
 cd backend
 
@@ -100,10 +100,11 @@ php artisan storage:link
 
 ### 8. Inicie o servidor da API (geralmente na porta 8000)
 php artisan serve
+```
 
 ## 2. Configuração do Frontend (App Angular)
 Bash
-
+```
 ### 1. Em um novo terminal, navegue até a pasta do frontend
 cd frontend/frontend
 
@@ -112,6 +113,7 @@ npm install
 
 ### 3. Inicie o servidor de desenvolvimento do Angular (geralmente na porta 4200)
 ng serve --open
+```
 Sua aplicação estará rodando! O frontend (Angular) em http://localhost:4200 se comunicará com o backend (Laravel) em http://localhost:8000.
 
 # 🚧 Funcionalidades Futuras
