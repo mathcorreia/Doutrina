@@ -39,12 +39,13 @@ php artisan serve
 # 🗺️ Endpoints Principais da API
 Todos os endpoints são prefixados com /api.
 ```Markdown
-- Método  | URI |	Ação |	Protegido?
-- POST	| /signup  | 	Registra um novo usuário (freela/empresa) |	Não
-- POST	| /login  |  	Autentica um usuário e retorna um token   | Não
-- GET	    | /projects  | 	Lista todos os projetos	|  Não
-- GET  |	/projects/{id}  | 	Exibe os detalhes de um projeto |	Não
-- POST  | 	/projects  | 	Cria um novo projeto |	Sim
-- POST  |	/proposals | 	Envia uma proposta para um projeto |	Sim
-- POST  |	/user/profile-photo  | 	Faz o upload da foto de perfil do usuário |	Sim
-- POST  |	/reviews  |	Cria uma nova avaliação | 	Sim
+- Método  | URI                  |	Ação                                      |	Protegido?
+- POST	  | /signup              | 	Registra um novo usuário (freela/empresa) |	Não
+- POST	  | /login               |  Autentica um usuário e retorna um token   | Não
+- GET	  | /projects            | 	Lista todos os projetos	                  | Não
+- GET     |	/projects/{id}       | 	Exibe os detalhes de um projeto           |	Não
+- POST    | /projects            | 	Cria um novo projeto                      |	Sim
+- POST    |	/proposals           | 	Envia uma proposta para um projeto        |	Sim
+- POST    |	/user/profile-photo  | 	Faz o upload da foto de perfil do usuário |	Sim
+- POST    |	/reviews             |	Cria uma nova avaliação                   | Sim
+
