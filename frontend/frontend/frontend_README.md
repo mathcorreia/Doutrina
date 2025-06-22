@@ -1,40 +1,81 @@
-# 🎨 FreelaHub - Aplicação Frontend (Angular)
+# FreelaHub - Interface do Usuário (Frontend)
 
-Este arquivo é para quem for trabalhar na interface do usuário com Angular.
-Este diretório contém a Single-Page Application (SPA) do projeto FreelaHub, desenvolvida com o framework Angular. A aplicação é responsável por toda a interface do usuário e consome a API RESTful do backend em Laravel.
+Este repositório contém o código-fonte do frontend da plataforma FreelaHub. Desenvolvido como uma **Single Page Application (SPA)** usando o framework **Angular**, ele é responsável por toda a interface e experiência do usuário.
 
----
+## Visão Geral
 
-## 🖥️ Tecnologias
-- **Angular 17+**
-- **TypeScript**
-- **Angular Router** para navegação.
-- **Reactive Forms** para formulários.
-- **HTTP Client & Interceptors** para comunicação com a API.
-- **CSS3/SCSS** para estilização.
+O frontend consome a API RESTful do backend para criar uma experiência de usuário fluida e interativa. Ele permite que os usuários se cadastrem, façam login, visualizem projetos, enviem propostas e gerenciem suas atividades na plataforma sem a necessidade de recarregar a página a cada ação.
 
----
+## Tecnologias Utilizadas
 
-# 🛠️ Instalação e Execução 
+* **Angular:** Framework principal para a construção da interface.
+* **TypeScript:** Linguagem de programação que adiciona tipagem estática ao JavaScript.
+* **HTML5 & CSS:** Para a estrutura e estilização das páginas.
+* **Angular Router:** Para gerenciar a navegação entre as diferentes seções da aplicação.
+* **Reactive Forms:** Para a criação e validação de formulários complexos como os de cadastro e criação de projetos.
 
-**Pré-requisito:** O backend em Laravel deve estar rodando em `http://localhost:8000`.
+## Pré-requisitos
 
-```bash
-# 1. Instale as dependências do Node.js
-npm install
+Para executar o frontend, você precisará ter instalado:
+* [Node.js](https://nodejs.org/) (versão 20.x ou superior, que inclui o `npm`)
+* [Angular CLI](https://angular.dev/cli) (instalado globalmente via `npm install -g @angular/cli`)
 
-# 2. Inicie o servidor de desenvolvimento
-ng serve --open
-```
-A aplicação estará disponível em http://localhost:4200.
+## Guia de Instalação e Execução Local
 
-# 📂 Arquitetura do Frontend
+Siga estes passos para configurar e executar o frontend em seu ambiente de desenvolvimento:
 
-A estrutura de pastas foi organizada para escalabilidade:
+1.  **Navegue até a pasta correta do frontend:**
+    *Atenção: entre na subpasta `frontend`.*
+    ```bash
+    cd frontend/frontend
+    ```
 
-- src/app/components/: Componentes reutilizáveis (Header, Footer, etc.).
-- src/app/pages/: Componentes que representam uma página inteira e são usados no roteamento (Login, Home, ProjectList).
-- src/app/services/: Serviços responsáveis pela lógica de negócios e comunicação com a API (AuthService, ProjectService).
-- src/app/guards/: Lógica para proteger rotas (ex: garantir que só empresas acessem certas páginas).
-- src/app/interceptors/: Lógica para interceptar e modificar requisições HTTP (ex: adicionar o token de autenticação).
-- src/styles.css: Arquivo de estilos globais para toda a aplicação.
+2.  **Instale as dependências do Node.js:**
+    Este comando irá baixar todas as bibliotecas que o Angular precisa para funcionar.
+    ```bash
+    npm install
+    ```
+
+3.  **Inicie o servidor de desenvolvimento:**
+    ```bash
+    ng serve
+    ```
+    Acesse a aplicação em `http://localhost:4200/` no seu navegador. O servidor irá recarregar a página automaticamente sempre que você salvar uma alteração nos arquivos.
+
+## Funcionalidades Implementadas
+
+* **Cadastro e Login:** Sistema de autenticação completo com formulários distintos para 'Empresas' e 'Freelancers'.
+* **Navegação Protegida (Guards):** Rotas específicas como `/dashboard`, `/my-projects` e `/my-proposals` são protegidas e só podem ser acessadas por usuários autenticados e com o perfil correto.
+* **Dashboards Dinâmicos:** A página de dashboard exibe menus e ações diferentes com base no tipo de usuário logado.
+* **Interação com Projetos e Propostas:**
+    * Empresas podem criar projetos através de um formulário dedicado.
+    * Freelancers podem visualizar projetos e enviar propostas detalhadas.
+    * Empresas podem visualizar todas as propostas recebidas para seus projetos.
+* **Páginas de Gerenciamento Pessoal:**
+    * `/my-projects`: Página para empresas verem os projetos que publicaram.
+    * `/my-proposals`: Página para freelancers verem as propostas que enviaram.
+
+## Publicação no GitHub Pages
+
+Para publicar o frontend na internet, siga os passos abaixo:
+
+1.  **Navegue até a pasta do projeto Angular:**
+    ```bash
+    cd frontend/frontend
+    ```
+2.  **Instale a ferramenta de deploy (se ainda não o fez):**
+    ```bash
+    npm install angular-cli-ghpages --save-dev
+    ```
+3.  **Execute o comando de build e deploy:**
+    *Lembre-se de substituir `FreelaHub` pelo nome exato do seu repositório no GitHub.*
+    ```bash
+    npx angular-cli-ghpages --base-href=/FreelaHub/
+    ```
+4.  **Configure o GitHub Pages:** Vá até as configurações do seu repositório no GitHub, na seção "Pages", e configure a fonte de publicação para a branch `gh-pages`.
+
+## Equipe do Projeto
+
+* **Matheus Correia** - *Desenvolvedor Full-Stack* - [mathcorreia](https://github.com/mathcorreia)
+* **João Victor**
+*  **Renilson Micael**

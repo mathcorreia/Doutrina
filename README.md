@@ -126,3 +126,9 @@ Implementação completa da funcionalidade de avaliações (reviews).
 
 # 📄 Licença
 Este projeto está sob a licença MIT. Sinta-se livre para usar, modificar e contribuir!
+
+## Equipe do Projeto
+
+* **Matheus Correia** - *Desenvolvedor Full-Stack* - [mathcorreia](https://github.com/mathcorreia)
+* **João Victor**
+*  **Renilson Micael**
