@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-// 1. Importe o Controller base e o Facade Auth
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Project;
 use Illuminate\Http\Request;
 
-// 2. O controller deve estender o 'Controller' base, e não o AuthController
 class ProjectController extends Controller
 {
     public function index()

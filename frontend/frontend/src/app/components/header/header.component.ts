@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router'; // 1. Garanta que esta importação existe
+import { RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService, User } from '../../services/auth.service';
 
@@ -9,7 +9,7 @@ import { AuthService, User } from '../../services/auth.service';
   standalone: true,
   imports: [
     CommonModule,
-    RouterModule // 2. Adicione RouterModule aqui para fazer o routerLink funcionar
+    RouterModule 
   ],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']

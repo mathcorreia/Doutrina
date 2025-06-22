@@ -1,4 +1,3 @@
-/* Estilo para a lista de projetos */
 .project-list-container {
   padding: 3rem 0;
 }
@@ -9,12 +8,11 @@
   gap: 2rem;
 }
 
-/* Aqui aplicamos o estilo de card arredondado */
 .project-card {
   background-color: var(--white-color);
-  border-radius: var(--border-radius); /* Borda arredondada */
-  box-shadow: var(--box-shadow);       /* Sombra suave */
-  overflow: hidden; /* Garante que o conteúdo não vaze das bordas */
+  border-radius: var(--border-radius); 
+  box-shadow: var(--box-shadow);      
+  overflow: hidden; 
   transition: all var(--transition-speed) ease;
   display: flex;
   flex-direction: column;

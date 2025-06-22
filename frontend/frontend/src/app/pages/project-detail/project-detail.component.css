@@ -1,4 +1,3 @@
-/* Estilo para a seção de propostas e o formulário */
 .proposals-section {
   margin-top: 30px;
 }
@@ -71,7 +70,6 @@
   cursor: not-allowed;
 }
 
-/* Estilos para o card de propostas recebidas (bônus) */
 .proposal-card {
   background: #fff;
   border: 1px solid #ddd;
@@ -90,14 +88,13 @@
     color: #555;
     margin-top: 10px;
 }
-/* Usando :host para garantir que os estilos do componente sejam aplicados */
 :host .project-detail-card {
   background-color: #fff;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   padding: 2rem;
   margin-bottom: 2rem;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05); /* Sombra suave para destaque */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05); 
 }
 
 :host .project-header h1 {

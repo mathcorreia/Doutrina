@@ -1,11 +1,11 @@
 :host {
   display: block;
-  background-color: #f4f7f6; /* Fundo suave para a área do dashboard */
+  background-color: #f4f7f6; 
 }
 
 .dashboard-container {
   display: flex;
-  min-height: calc(100vh - 70px); /* Subtrai a altura do header, ajuste se necessário */
+  min-height: calc(100vh - 70px); 
 }
 
 /* --- Menu Lateral --- */

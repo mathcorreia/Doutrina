@@ -29,6 +29,6 @@ export const routes: Routes = [
     { path: 'my-projects', component: CompanyProjectsComponent, canActivate: [authGuard, companyGuard] },
     { path: 'my-proposals', component: FreelancerProposalsComponent, canActivate: [authGuard, freelancerGuard] },
 
-    // Rota Curinga (sempre por último)
+    // Rota Curinga 
     { path: '**', redirectTo: '', pathMatch: 'full' }
 ];

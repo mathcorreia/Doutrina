@@ -1,5 +1,4 @@
 .main-header {
-  /* Efeito de vidro */
   background-color: rgba(255, 255, 255, 0.85);
   backdrop-filter: saturate(180%) blur(10px);
   -webkit-backdrop-filter: saturate(180%) blur(10px);
@@ -30,7 +29,7 @@
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 1.5rem; /* Espaçamento ajustado */
+  gap: 1.5rem; 
 }
 
 .nav-links a {
@@ -46,7 +45,6 @@
   background-color: var(--light-gray-color);
 }
 
-/* Ajuste específico para o botão de cadastro no header */
 .nav-links .btn-primary {
   padding: 10px 22px;
 }
@@ -62,9 +60,8 @@
   font-weight: 500;
   padding: 0.5rem 0.75rem;
 }
-/* Estilo para os ícones de navegação */
 .nav-links .nav-icon {
-  font-size: 1.6rem; /* Tamanho do ícone */
+  font-size: 1.6rem; 
   color: var(--color-text-muted);
   padding: 0.25rem 0.5rem;
   cursor: pointer;
@@ -72,7 +69,7 @@
 }
 
 .nav-links .nav-icon:hover {
-  background-color: transparent; /* Remove o fundo do hover de link normal */
+  background-color: transparent; 
   color: var(--color-primary);
   text-decoration: none;
 }

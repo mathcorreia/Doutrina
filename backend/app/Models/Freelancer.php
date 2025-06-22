@@ -15,7 +15,7 @@ class Freelancer extends Model
         'user_id',
         'cpf',
         'data_nascimento',
-        'telefone', // <- Autorize o campo
+        'telefone', 
         'skills',
     ];
 

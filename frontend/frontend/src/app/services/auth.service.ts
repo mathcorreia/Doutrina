@@ -12,7 +12,6 @@ export interface User {
   email: string;
   user_type: 'freelancer' | 'company';
   
-  // O '?' significa que a propriedade é opcional (um freelancer não terá dados de empresa)
   company?: { 
     company_name: string; 
     razao_social: string;
@@ -21,7 +20,6 @@ export interface User {
     telefone: string;
   };
 
-  // O '?' significa que a propriedade é opcional (uma empresa não terá dados de freelancer)
   freelancer?: { 
     cpf: string; 
     data_nascimento: string;

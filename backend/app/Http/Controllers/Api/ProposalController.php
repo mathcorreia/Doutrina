@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-// 1. Importe o Controller base e o Facade Auth
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Proposal;
 use Illuminate\Http\Request;
 
-// 2. O controller deve estender o 'Controller' base
 class ProposalController extends Controller
 {
     public function store(Request $request)
@@ -20,15 +18,15 @@ class ProposalController extends Controller
             'mensagem_proposta' => 'required|string|min:10',
         ]);
 
-        // 3. Obtenha o usuário da forma correta
+        //  Obtenha o usuário da forma correta
         $user = Auth::user();
 
-        // 4. Verificação de segurança para o freelancer
+        //  Verificação de segurança para o freelancer
         if (!$user || !$user->freelancer) {
             return response()->json(['message' => 'Ação não autorizada ou perfil de freelancer não encontrado.'], 403);
         }
 
-        // 5. Adicione o freelancer_id automaticamente
+        //  Adicione o freelancer_id automaticamente
         $validatedData['freelancer_id'] = $user->freelancer->id;
         
         $proposal = Proposal::create($validatedData);

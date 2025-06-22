@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User; // Importa o Model User
+use App\Models\User; 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -17,7 +17,7 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
-        // 1. Validação dos dados recebidos
+        //  Validação dos dados recebidos
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email', // Verifica se o email é único na tabela 'users'
@@ -29,7 +29,7 @@ class UsuarioController extends Controller
             return response()->json(['errors' => $validator->errors()], 422); // 422 Unprocessable Entity
         }
 
-        // 2. Criação do usuário
+        //  Criação do usuário
         try {
             $user = User::create([
                 'name' => $request->name,
@@ -37,15 +37,13 @@ class UsuarioController extends Controller
                 'password' => $request->password, // O Hash::make é feito automaticamente pelo Model devido ao cast 'hashed'
             ]);
 
-            // 3. Retorna uma resposta de sucesso
+            //  Retorna uma resposta de sucesso
             return response()->json([
                 'message' => 'Usuário cadastrado com sucesso!',
                 'user' => $user
             ], 201); // 201 Created
 
         } catch (\Exception $e) {
-            // Log do erro (opcional, mas recomendado para debug)
-            // Log::error('Erro ao cadastrar usuário: ' . $e->getMessage());
 
             return response()->json([
                 'message' => 'Erro ao cadastrar usuário. Por favor, tente novamente mais tarde.'

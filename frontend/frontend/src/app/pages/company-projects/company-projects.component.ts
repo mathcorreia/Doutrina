@@ -24,9 +24,8 @@ export class CompanyProjectsComponent implements OnInit {
         this.isLoading = false;
       },
       error: (err: any) => {
-        // AQUI ESTÁ A LÓGICA DE ERRO MELHORADA
         this.isLoading = false;
-        // Se o backend enviar uma mensagem de erro específica (como o 403), vamos exibi-la.
+        // Se o backend enviar uma mensagem de erro específica (como o 403), exibi-la.
         if (err.error && err.error.message) {
             this.errorMessage = `Erro: ${err.error.message}`;
         } else {

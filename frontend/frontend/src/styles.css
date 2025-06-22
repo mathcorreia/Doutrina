@@ -91,11 +91,8 @@ a:hover { color: var(--color-primary); }
   font-size: 0.875rem;
   margin-top: 0.25rem;
 }
-/* ========================================= */
-/* --- Estilos Globais para Cards          --- */
-/* ========================================= */
 
-/* Estilo para os cards de PROJETO (usado em /projects, /my-projects) */
+
 .project-card {
   background-color: #fff;
   border: 1px solid #e0e0e0;
@@ -141,7 +138,6 @@ a:hover { color: var(--color-primary); }
   margin-top: auto; /* Alinha o link na parte inferior do card */
 }
 
-/* Estilo para os cards de PROPOSTA (usado em /project-detail) */
 .proposal-card {
   background: #f8f9fa;
   border: 1px solid #ddd;

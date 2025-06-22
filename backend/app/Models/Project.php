@@ -22,7 +22,7 @@ class Project extends Model
         'description',
         'budget',
         'status',
-        'skills', // Corrigido de 'skills_required' para 'skills'
+        'skills', 
     ];
 
     /**

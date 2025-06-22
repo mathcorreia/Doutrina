@@ -15,7 +15,6 @@ class AuthController extends Controller
 {
     public function register(Request $request)
     {
-        // A validação continua a mesma, esperando o campo 'name' do formulário
         $validator = Validator::make($request->all(), [
             'user_type' => 'required|in:freelancer,company',
             'email' => 'required|string|email|max:255|unique:users,email',
@@ -45,9 +44,8 @@ class AuthController extends Controller
                 $user->freelancer()->create($request->only(['cpf', 'data_nascimento', 'telefone']));
             } 
             elseif ($request->user_type === 'company') {
-                // CORREÇÃO: Mapeando o campo 'name' do formulário para a coluna 'company_name' do banco
                 $user->company()->create([
-                    'company_name' => $request->name, // <-- AQUI ESTÁ A CORREÇÃO
+                    'company_name' => $request->name, 
                     'razao_social' => $request->razao_social,
                     'cnpj' => $request->cnpj,
                     'data_fundacao' => $request->data_fundacao,

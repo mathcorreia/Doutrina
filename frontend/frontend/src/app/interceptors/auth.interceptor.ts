@@ -4,9 +4,11 @@ import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 
 /**
- * Este é o interceptor de autenticação.
- * Ele será executado para cada requisição HTTP que sair do seu app.
+ * Interceptor que adiciona o token de autenticação ao cabeçalho das requisições HTTP.
+ * Ele verifica se há um token salvo no AuthService e, se existir, o adiciona ao cabeçalho
+ * de Autorização da requisição.
  */
+// O token é esperado no formato "
 export const authInterceptor: HttpInterceptorFn = (
   req: HttpRequest<unknown>,
   next: HttpHandlerFn

@@ -22,7 +22,6 @@ export class ProjectService {
     return this.http.post<any>(`${this.apiUrl}/projects`, projectData);
   }
 
-  // MÉTODO ADICIONADO AQUI
   getMyProjects(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/my-projects`);
   }

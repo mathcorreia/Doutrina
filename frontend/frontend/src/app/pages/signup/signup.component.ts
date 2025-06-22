@@ -38,10 +38,9 @@ export class SignupComponent implements OnInit {
   }
 
   initializeForm(): void {
-    // Lógica unificada para criar o formulário
     this.signupForm = this.fb.group({
       user_type: [this.userType],
-      name: ['', Validators.required], // 'name' é a base para ambos os tipos
+      name: ['', Validators.required], 
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       password_confirmation: ['', Validators.required],

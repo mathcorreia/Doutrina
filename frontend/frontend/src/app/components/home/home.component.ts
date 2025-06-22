@@ -11,14 +11,12 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
-  // Referências seguras aos elementos do carrossel no HTML
   @ViewChildren('slide') slides!: QueryList<ElementRef<HTMLElement>>;
   @ViewChildren('dot') dots!: QueryList<ElementRef<HTMLElement>>;
 
   slideIndex = 0;
   slideInterval: any;
 
-  // A lógica do formulário de contato é mantida como estava
   contactForm!: FormGroup;
   formMessage: string | null = null;
   formSuccess: boolean = false;
@@ -45,7 +43,6 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     setTimeout(() => { this.formMessage = null; }, 5000);
   }
 
-  // --- Lógica do Carrossel (Revisada e Robusta) ---
   ngAfterViewInit(): void {
     // Garante que o carrossel só inicie se houver slides na página
     if (this.slides.length > 0) {

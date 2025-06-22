@@ -16,7 +16,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'user_type', // Campo essencial
+        'user_type', // 'freelancer' or 'company'
     ];
 
     protected $hidden = [ 'password', 'remember_token', ];

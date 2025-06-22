@@ -1,17 +1,16 @@
-/* Estilo aprimorado para a página de seleção */
 
 :host {
   display: flex;
-  align-items: center;     /* Centraliza o conteúdo na vertical */
-  justify-content: center; /* Centraliza o conteúdo na horizontal */
-  flex-grow: 1;            /* Faz o componente ocupar todo o espaço vertical disponível */
+  align-items: center;     
+  justify-content: center; 
+  flex-grow: 1;            
   width: 100%;
   padding: 2rem;
 }
 
 .selection-container {
   width: 100%;
-  max-width: 50rem; /* 800px */
+  max-width: 50rem; 
   text-align: center;
 }
 
@@ -20,9 +19,9 @@
 }
 
 .selection-container p {
-  max-width: 37.5rem; /* 600px */
+  max-width: 37.5rem; 
   margin: 0 auto 3rem auto;
-  color: var(--color-text-muted); /* Usando variável do seu tema */
+  color: var(--color-text-muted); 
   font-size: 1.1rem;
 }
 
@@ -30,7 +29,7 @@
   display: flex;
   justify-content: center;
   gap: 2rem;
-  flex-wrap: wrap; /* Permite que os cards quebrem a linha em telas menores */
+  flex-wrap: wrap; 
 }
 
 .option-card {
@@ -44,23 +43,23 @@
   border-radius: var(--border-radius);
   padding: 2.5rem;
   width: 100%;
-  max-width: 21.25rem; /* 340px */
+  max-width: 21.25rem; 
   box-shadow: var(--shadow-sm);
   cursor: pointer;
   transition: transform var(--transition-speed), box-shadow var(--transition-speed);
 }
 
 .option-card:hover {
-  transform: translateY(-0.5rem); /* Efeito de elevação */
+  transform: translateY(-0.5rem); 
   box-shadow: var(--shadow-md);
   text-decoration: none;
 }
 
 .option-icon {
-  width: 5rem;  /* 80px */
-  height: 5rem; /* 80px */
+  width: 5rem;  
+  height: 5rem; 
   margin-bottom: 1.5rem;
-  color: var(--color-primary); /* Cor do ícone */
+  color: var(--color-primary); 
 }
 
 .option-card h3 {
