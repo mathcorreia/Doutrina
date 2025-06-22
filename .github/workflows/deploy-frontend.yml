@@ -1,0 +1,66 @@
+# Workflow para fazer o build e deploy do frontend Angular no GitHub Pages
+name: Deploy Frontend to GitHub Pages
+
+on:
+  # Executa quando um push é feito para a branch principal (main ou master)
+  push:
+    branches:
+      - main # Altere para 'master' se for o seu caso
+    paths:
+      - 'frontend/frontend/**' # Executa o workflow somente se houver mudanças no frontend
+
+  # Permite que você execute este workflow manualmente na aba Actions do GitHub
+  workflow_dispatch:
+
+# Define as permissões para o token do GitHub Actions
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Permite apenas um deploy concorrente, cancelando execuções anteriores
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # A versão do Node.js que seu projeto utiliza
+          cache: 'npm'
+          cache-dependency-path: 'frontend/frontend/package-lock.json'
+
+      - name: Install dependencies
+        # Navega até o diretório do frontend antes de instalar
+        working-directory: ./frontend/frontend
+        run: npm install
+
+      - name: Build Angular App
+        # Navega até o diretório e executa o script de build do package.json
+        working-directory: ./frontend/frontend
+        run: npm run build -- --base-href /${{ github.event.repository.name }}/
+        # A flag --base-href é importante para que o roteamento do Angular funcione no GitHub Pages
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Caminho para os arquivos gerados pelo build do Angular
+          # Verifique o caminho exato no seu arquivo angular.json em "outputPath"
+          path: ./frontend/frontend/dist/frontend/browser/
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
