@@ -1,98 +1,123 @@
-# 🚀 FreelaHub - Conectando Freelancers ao Sucesso
+# 🚀 FreelaHub - Conectando Talentos ao Sucesso
+FreelaHub é uma plataforma web full-stack, moderna e intuitiva, que conecta freelancers a empresas. O objetivo é criar um ecossistema digital onde empresas possam postar projetos e freelancers possam encontrar oportunidades, com a plataforma facilitando a comunicação, a contratação e a avaliação mútua.
 
-**FreelaHub** é uma plataforma web moderna e intuitiva que conecta **freelancers** a **empresas**, permitindo que ambos alcancem seus objetivos com mais facilidade. Empresas publicam projetos, freelancers enviam propostas — simples assim!!
+&lt;br>
 
----
+🔗 Link para o Design no Figma: Acesse o protótipo do FreelaHub aqui
 
-## 🧠 Visão Geral
+# 🖥️ Tecnologias Utilizadas
+Este projeto foi construído com uma arquitetura de API RESTful no backend e uma Single-Page Application (SPA) no frontend.
 
-A proposta do FreelaHub é criar um ecossistema digital em que:
+# Backend (Laravel)
+✅ PHP 8+
+✅ Laravel 11+: Um framework PHP robusto e elegante.
+✅ SQLite: Banco de dados leve e baseado em arquivo, ideal para desenvolvimento.
+✅ Laravel Sanctum: Para autenticação de API segura e baseada em tokens.
+✅ Eloquent ORM: Para manipulação de dados de forma intuitiva e segura.
 
-- Empresas **postam demandas de trabalho**
-- Freelancers **apresentam orçamentos e prazos**
-- A plataforma **facilita a escolha e comunicação**
-- Ambas as partes **avaliam a experiência**
-- Figma do projeto: https://www.figma.com/design/XIuqlSS2bx04yJaOv6VWEP/Figma-basics?node-id=603-2
 
----
+# Frontend (Angular)
+✅ Angular 17+: Um framework de ponta para criar aplicações web dinâmicas.
+✅ TypeScript: Superset do JavaScript que adiciona tipagem estática.
+✅ HTML5 & CSS3/SCSS: Para estruturação e estilização modernas.
+✅ Angular Router: Para criar uma experiência de navegação fluida de Single-Page Application (SPA).
+✅ Reactive Forms: Para criar formulários robustos e escaláveis.
+✅ HTTP Client & Interceptors: Para uma comunicação eficiente e segura com a API.
 
-## 🖥️ Tecnologias Utilizadas
+# 🎯 Funcionalidades Implementadas
 
-- ✅ **HTML5 & CSS3**
-- ✅ **JavaScript Vanilla** para carrossel e interações
-- ✅ **Google Fonts** (Poppins)
-- ✅ Estrutura modular e responsiva
-- ✅ Design clean com foco em usabilidade
+## 👩‍💼 Para Empresas
+Autenticação Segura: Cadastro e Login específicos para empresas.
+Gerenciamento de Projetos: Publicação de novos projetos com título, descrição e orçamento.
+Visualização de Propostas: Acesso a uma lista de propostas enviadas por freelancers para seus projetos.
+Navegação Protegida: Acesso exclusivo à página de criação de projetos através de Guards.
 
----
+## 💼 Para Freelancers
+Autenticação Segura: Cadastro e Login específicos para freelancers.
+Visualização de Oportunidades: Navegação em uma lista de projetos disponíveis.
+Envio de Propostas: Formulário para enviar propostas com valor e mensagem de apresentação.
+Perfil Personalizado: Base para futuras implementações, como upload de foto de perfil.
+📂 Estrutura do Projeto
+O projeto é organizado em duas pastas principais: backend e frontend, permitindo um desenvolvimento desacoplado.
 
-## 📂 Estrutura do Projeto
+📁 FreelaHub/
+├── 📁 backend/         # Contém a aplicação Laravel (API)
+│   ├── app/
+│   ├── database/
+│   │   └── database.sqlite   # O arquivo do banco de dados
+│   ├── routes/
+│   │   └── api.php           # Definição dos endpoints da API
+│   └── ...
+│
+└── 📁 frontend/        # Contém a aplicação Angular (SPA)
+    └── 📁 frontend/
+        ├── src/
+        │   ├── app/
+        │   │   ├── components/ # Componentes reutilizáveis (Header, Home)
+        │   │   ├── guards/     # Guards de rota (company.guard)
+        │   │   ├── interceptors/ # Interceptadores HTTP (auth.interceptor)
+        │   │   ├── pages/      # Componentes de página (Login, Signup)
+        │   │   └── services/   # Serviços (Auth, Project)
+        │   ├── assets/
+        │   └── styles.css      # Estilos globais
+        └── ...
 
-```
-📁 projeto-freelahub/
-├── index.html              # Página principal
-├── styles.css              # Estilização geral
-├── paginaLogin.html        # Página de login/cadastro (em construção)
-└── img/
-    └── bat.png             # Imagem de exemplo para o carrossel
-```
+        
+# 🛠️ Instalação e Execução
 
----
+Para rodar este projeto localmente, siga os passos abaixo.
 
-## 🎯 Funcionalidades
+Pré-requisitos
+PHP >= 8.1
+Composer
+Node.js e npm
+Angular CLI (npm install -g @angular/cli)
+1. Configuração do Backend (API Laravel)
+Bash
 
-### 👩‍💼 Para Empresas
-- Cadastro/Login
-- Publicação de projetos
-- Visualização de propostas recebidas
-- Contratação de freelancers
-- Avaliação de profissionais
+# 1. Navegue até a pasta do backend
+cd backend
 
-### 💼 Para Freelancers
-- Cadastro/Login
-- Criação de perfil profissional
-- Navegação em projetos disponíveis
-- Envio de propostas
-- Acompanhamento de trabalhos contratados
+# 2. Instale as dependências do PHP
+composer install
 
----
+# 3. Crie o arquivo de ambiente a partir do exemplo
+cp .env.example .env
 
-## 🔄 Carrossel Customizado
+# 4. Gere a chave da aplicação
+php artisan key:generate
 
-Na seção "Sobre", há um carrossel dinâmico feito em JavaScript puro com:
+# 5. Crie o arquivo do banco de dados SQLite
+touch database/database.sqlite
 
-- ✔️ Slides automáticos (a cada 5s)
-- ✔️ Botões de navegação (prev/next)
-- ✔️ Indicadores (bolinhas)
-- ✔️ Legendas personalizadas por slide
+# 6. Rode as migrations para criar as tabelas
+php artisan migrate
 
----
+# 7. Crie o link simbólico para o armazenamento público
+php artisan storage:link
 
-## 🚧 Funcionalidades Futuras
+# 8. Inicie o servidor da API (geralmente na porta 8000)
+php artisan serve
+2. Configuração do Frontend (App Angular)
+Bash
 
-- Integração com **back-end** (Node.js, Firebase ou outro)
-- Sistema de **chat em tempo real**
-- Área de **painel administrativo**
-- **Notificações automáticas** por e-mail
-- **Sistema de pagamentos** (Stripe/PayPal)
-- Filtros por categoria, nível de experiência, região etc.
+# 1. Em um novo terminal, navegue até a pasta do frontend
+cd frontend/frontend
 
----
+# 2. Instale as dependências do Node.js
+npm install
 
-## 💬 Contato
+# 3. Inicie o servidor de desenvolvimento do Angular (geralmente na porta 4200)
+ng serve --open
+Sua aplicação estará rodando! O frontend (Angular) em http://localhost:4200 se comunicará com o backend (Laravel) em http://localhost:8000.
 
-Entre em contato para sugestões, dúvidas ou parcerias:
+# 🚧 Funcionalidades Futuras
+Sistema de chat em tempo real entre empresas e freelancers.
+Painel administrativo para gerenciamento de usuários e projetos.
+Notificações automáticas por e-mail ou na plataforma.
+Integração de sistema de pagamentos (Stripe/PayPal).
+Filtros avançados para busca de projetos e freelancers.
+Implementação completa da funcionalidade de avaliações (reviews).
 
-📧 **Email:** contato@freelahub.com  
-🔗 **LinkedIn:** [linkedin.com/in/seuperfil](https://linkedin.com/in/seuperfil)  
-📸 **Instagram:** [@freelahub](https://instagram.com/freelahub)
-
----
-
-## 📄 Licença
-
+# 📄 Licença
 Este projeto está sob a licença MIT. Sinta-se livre para usar, modificar e contribuir!
-
----
-
-🛠 Feito com 💙 por Equipe FreelaHub
