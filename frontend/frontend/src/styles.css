@@ -336,3 +336,48 @@ header nav ul {
 .dot.active, .dot:hover {
   background-color: var(--color-primary);
 }
+header {
+  background-color: var(--color-surface);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  padding: 1rem 0;
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  nav {
+    overflow-x: auto; 
+    -webkit-overflow-scrolling: touch; 
+    scrollbar-width: none; 
+     &::-webkit-scrollbar { display: none; } 
+  }
+
+  nav ul {
+    display: flex; /* Mantém os itens lado a lado */
+    list-style: none;
+    gap: 1.5rem;
+    white-space: nowrap; /* Impede que os links quebrem linha */
+  }
+}
+
+
+.hero-section h1 {
+  font-size: 2rem;
+}
+
+.about-us-grid,
+.plans-grid,
+.cards,
+.contact-form .form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.plan-card,
+.card,
+.form-group {
+  width: 100%;
+}
