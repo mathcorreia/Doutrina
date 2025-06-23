@@ -11,6 +11,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
+  // Referências seguras aos elementos do carrossel no HTML
   @ViewChildren('slide') slides!: QueryList<ElementRef<HTMLElement>>;
   @ViewChildren('dot') dots!: QueryList<ElementRef<HTMLElement>>;
 

@@ -58,3 +58,20 @@
   <ng-template #notFound><p>Projeto não encontrado.</p></ng-template>
 </div>
 <ng-template #loading><p class="loading-message">Carregando...</p></ng-template>
+<div *ngIf="isOwner">
+  <div *ngFor="let proposal of project.proposals" class="proposal-card">
+    <p><strong>Candidato:</strong> {{ proposal.freelancer.user.name }}</p>
+    <p><strong>Valor da Proposta:</strong> R$ {{ proposal.valor | number:'1.2-2' }}</p>
+    <p class="proposal-message">"{{ proposal.mensagem_proposta }}"</p>
+
+    <div class="actions" *ngIf="proposal.status !== 'aceita'">
+      <button (click)="onAcceptProposal(proposal.id)" class="btn btn-success">Aceitar Proposta</button>
+    </div>
+
+    <div class="status-accepted" *ngIf="proposal.status === 'aceita'">
+      <strong>Proposta Aceita!</strong>
+    </div>
+  </div>
+</div>
+
+

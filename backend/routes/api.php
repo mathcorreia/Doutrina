@@ -48,4 +48,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/proposals/{proposal}', [ProposalController::class, 'update'])->middleware('can:isFreelancer');
     Route::delete('/proposals/{proposal}', [ProposalController::class, 'destroy'])->middleware('can:isFreelancer');
     Route::get('/proposals/{proposal}', [ProposalController::class, 'show'])->middleware('can:isFreelancer');
+    Route::post('/proposals/{proposal}/accept', [ProposalController::class, 'accept'])->middleware('can:isCompany');
+    Route::post('/proposals/{proposal}/reject', [ProposalController::class, 'reject'])->middleware('can:isCompany');
+
 });

@@ -91,4 +91,45 @@ class ProposalController extends Controller
 
         return response()->noContent();
     }
+    public function accept(Request $request, Proposal $proposal)
+    {
+        $user = Auth::user();
+
+        // Garante que o usuário logado é o dono do projeto da proposta
+        if ($user->company->id !== $proposal->project->company_id) {
+            return response()->json(['message' => 'Ação não autorizada.'], 403);
+        }
+
+        // Atualiza o status da proposta para 'aceita'
+        $proposal->status = 'aceita';
+        $proposal->save();
+
+        $proposal->project->status = 'em_andamento';
+        $proposal->project->save();
+        
+        
+        return response()->json([
+            'message' => 'Proposta aceita com sucesso! Um contrato simulado foi enviado.',
+            'proposal' => $proposal
+        ]);
+    }
+    public function reject(Request $request, Proposal $proposal)
+    {
+        $user = Auth::user();
+
+        // Garante que o usuário logado é o dono do projeto da proposta
+        if ($user->company->id !== $proposal->project->company_id) {
+            return response()->json(['message' => 'Ação não autorizada.'], 403);
+        }
+
+        // Atualiza o status da proposta para 'recusada'
+        $proposal->status = 'recusada';
+        $proposal->save();
+
+        
+        return response()->json([
+            'message' => 'Proposta recusada com sucesso!',
+            'proposal' => $proposal
+        ]);
+    }
 }

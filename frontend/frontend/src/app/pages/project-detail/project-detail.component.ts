@@ -9,7 +9,6 @@ import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-project-detail',
   standalone: true,
-  // Adicionei RouterLink aos imports para o botão de editar no HTML
   imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './project-detail.component.html',
   styleUrls: ['./project-detail.component.css']
@@ -29,7 +28,6 @@ export class ProjectDetailComponent implements OnInit {
     private proposalService: ProposalService,
     public authService: AuthService,
     private fb: FormBuilder,
-    // 2. A CORREÇÃO É ADICIONAR O ROUTER AQUI
     private router: Router
   ) {}
 
@@ -42,7 +40,6 @@ export class ProjectDetailComponent implements OnInit {
       this.projectService.deleteProject(this.project.id).subscribe({
         next: () => {
           alert('Projeto deletado com sucesso.');
-          // 3. AGORA ESTA LINHA FUNCIONARÁ
           this.router.navigate(['/projects']);
         },
         error: (err) => {
@@ -126,5 +123,48 @@ export class ProjectDetailComponent implements OnInit {
     } else {
       this.feedbackMessage = 'Você não tem permissão para editar este projeto.';
     }
+  }
+  onAcceptProposal(proposalId: number): void {
+  if (!this.isOwner) return;
+
+  this.proposalService.acceptProposal(proposalId).subscribe({
+    next: (response) => {
+      alert(response.message); // Exibe a mensagem de sucesso da API
+      // Atualiza o status da proposta na tela para 'aceita'
+      const acceptedProposal = this.project.proposals.find((p: any) => p.id === proposalId);
+      if (acceptedProposal) {
+        acceptedProposal.status = 'aceita';
+      }
+    },
+    error: (err) => {
+      alert('Erro ao aceitar a proposta.');
+      console.error(err);
+    }
+  });
+}
+  onRejectProposal(proposalId: number): void {
+    // Garante que apenas o dono do projeto pode executar a ação
+    if (!this.isOwner) {
+      return;
+    }
+
+    // Chama o serviço para enviar a requisição à API
+    this.proposalService.rejectProposal(proposalId).subscribe({
+      next: (response) => {
+        // Mostra a mensagem de sucesso da API
+        alert(response.message || 'Proposta recusada com sucesso.');
+
+        // Encontra a proposta na lista e atualiza seu status na tela,
+        // para um feedback visual instantâneo.
+        const rejectedProposal = this.project.proposals.find((p: any) => p.id === proposalId);
+        if (rejectedProposal) {
+          rejectedProposal.status = 'recusada';
+        }
+      },
+      error: (err) => {
+        alert('Ocorreu um erro ao recusar a proposta.');
+        console.error(err);
+      }
+    });
   }
 }
