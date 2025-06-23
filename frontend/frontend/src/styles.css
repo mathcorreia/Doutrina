@@ -173,3 +173,54 @@ a:hover { color: var(--color-primary); }
 .feedback-toast.error {
   background-color: #dc3545; 
 }
+body {
+  font-family: var(--font-family-base);
+  background-color: var(--color-background);
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.cards, .plans {
+  display: flex;
+  flex-direction: column; 
+  gap: 1.5rem;
+}
+
+.card, .plan {
+  width: 100%; 
+}
+
+
+
+@media (min-width: 768px) {
+  .cards, .plans {
+    flex-direction: row; 
+    justify-content: space-between;
+  }
+
+  .card, .plan {
+    width: 32%; 
+  }
+
+  .about-us-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    gap: 2rem;
+    align-items: center;
+  }
+}
+
+@media (min-width: 992px) {
+  h1 { font-size: 3rem; } 
+  h2 { font-size: 2.5rem; }
+
+  .hero-section p {
+    font-size: 1.25rem;
+  }
+}
