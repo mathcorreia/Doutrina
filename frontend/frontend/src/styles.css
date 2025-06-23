@@ -179,48 +179,69 @@ body {
   color: var(--color-text);
   line-height: 1.6;
 }
-
 .container {
   width: 90%;
-  max-width: 1200px;
   margin: 0 auto;
 }
+.hero-section h1 {
+  font-size: 2rem; 
+}
+.about-us-grid, .plans-grid, .cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
 
-.cards, .plans {
+.plan-card, .card {
+  width: 100%; 
+}
+
+.contact-form .form-row {
   display: flex;
   flex-direction: column; 
   gap: 1.5rem;
 }
 
-.card, .plan {
-  width: 100%; 
+header nav ul {
+  display: none;
 }
 
 
 
 @media (min-width: 768px) {
-  .cards, .plans {
-    flex-direction: row; 
-    justify-content: space-between;
+  header nav ul {
+    display: flex; 
   }
 
-  .card, .plan {
-    width: 32%; 
+  .hero-section h1 {
+    font-size: 3rem; 
   }
 
   .about-us-grid {
+    grid-template-columns: 1fr 1fr;
     display: grid;
-    grid-template-columns: 1fr 1fr; 
     gap: 2rem;
-    align-items: center;
+  }
+  
+  .plans-grid {
+    flex-direction: row; 
+  }
+
+  .cards {
+    flex-direction: row; 
+  }
+
+  .contact-form .form-row {
+    flex-direction: row; 
+    gap: 1rem;
+    .form-group {
+      flex: 1;
+    }
   }
 }
 
 @media (min-width: 992px) {
-  h1 { font-size: 3rem; } 
-  h2 { font-size: 2.5rem; }
-
-  .hero-section p {
-    font-size: 1.25rem;
+  .container {
+    max-width: 1140px; 
   }
 }
