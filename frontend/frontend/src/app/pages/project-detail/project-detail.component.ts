@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ProjectService } from '../../services/project.service';
 import { ProposalService } from '../../services/proposal.service';
 import { AuthService } from '../../services/auth.service';
-
+import { RouterLink } from '@angular/router'; 
 @Component({
   selector: 'app-project-detail',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  // Adicionei RouterLink aos imports para o botão de editar no HTML
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './project-detail.component.html',
   styleUrls: ['./project-detail.component.css']
 })
@@ -22,22 +23,40 @@ export class ProjectDetailComponent implements OnInit {
   isLoading = true;
   feedbackMessage: string | null = null;
 
- constructor(
+  constructor(
     private route: ActivatedRoute,
     private projectService: ProjectService,
     private proposalService: ProposalService,
-    public authService: AuthService, 
-    private fb: FormBuilder
-  )  {}
+    public authService: AuthService,
+    private fb: FormBuilder,
+    // 2. A CORREÇÃO É ADICIONAR O ROUTER AQUI
+    private router: Router
+  ) {}
+
+  onDeleteProject(): void {
+    if (!this.project) return;
+
+    const confirmation = confirm('Tem certeza que deseja deletar este projeto? Esta ação não pode ser desfeita.');
+
+    if (confirmation) {
+      this.projectService.deleteProject(this.project.id).subscribe({
+        next: () => {
+          alert('Projeto deletado com sucesso.');
+          // 3. AGORA ESTA LINHA FUNCIONARÁ
+          this.router.navigate(['/projects']);
+        },
+        error: (err) => {
+          this.feedbackMessage = 'Erro ao deletar o projeto.';
+          console.error(err);
+        }
+      });
+    }
+  }
 
   ngOnInit(): void {
-    // Busca o usuário logado
     this.currentUser = this.authService.getCurrentUser();
-
-    // Define o tipo de usuário (freelancer ou não)
     this.isFreelancer = this.currentUser?.user_type === 'freelancer';
 
-    // Pega o ID do projeto da URL e carrega os detalhes
     const projectId = this.route.snapshot.paramMap.get('id');
     if (projectId) {
       this.loadProjectDetails(projectId);
@@ -46,7 +65,6 @@ export class ProjectDetailComponent implements OnInit {
       this.feedbackMessage = "ID do projeto não encontrado.";
     }
 
-    // Inicializa o formulário de proposta
     this.proposalForm = this.fb.group({
       valor: ['', [Validators.required, Validators.min(1)]],
       mensagem_proposta: ['', [Validators.required, Validators.minLength(10)]]
@@ -57,14 +75,10 @@ export class ProjectDetailComponent implements OnInit {
     this.projectService.getProjectById(id).subscribe({
       next: (data) => {
         this.project = data;
-
-        // LÓGICA CORRIGIDA: Define se é o dono do projeto
-        // Reseta para 'false' e só define como 'true' se a condição for atendida
         this.isOwner = false;
         if (this.currentUser?.user_type === 'company' && this.currentUser.company?.id === this.project?.company_id) {
           this.isOwner = true;
         }
-        
         this.isLoading = false;
       },
       error: (err: any) => {
@@ -82,9 +96,11 @@ export class ProjectDetailComponent implements OnInit {
       return;
     }
 
+    // Garante que o ID do freelancer seja enviado na proposta
     const proposalData = {
       ...this.proposalForm.value,
-      project_id: this.project.id
+      project_id: this.project.id,
+      freelancer_id: this.currentUser?.freelancer?.id
     };
 
     this.proposalService.createProposal(proposalData).subscribe({
@@ -102,5 +118,13 @@ export class ProjectDetailComponent implements OnInit {
         console.error(err);
       }
     });
+  }
+  onEditProject(): void {
+    if (this.project && this.isOwner) {
+      // Redireciona para a página de edição do projeto
+      this.router.navigate([`/projects/${this.project.id}/edit`]);
+    } else {
+      this.feedbackMessage = 'Você não tem permissão para editar este projeto.';
+    }
   }
 }

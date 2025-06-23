@@ -1,0 +1,460 @@
+.proposals-section {
+
+margin-top: 30px;
+
+}
+
+
+
+.proposal-form-container {
+
+background-color: #f9f9f9;
+
+border-radius: 8px;
+
+padding: 25px;
+
+margin-top: 20px;
+
+border: 1px solid #e0e0e0;
+
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+
+}
+
+
+
+.proposal-form-container h4 {
+
+color: #333;
+
+margin-bottom: 20px;
+
+text-align: center;
+
+font-size: 1.5em;
+
+font-weight: 600;
+
+}
+
+
+
+.input-group {
+
+margin-bottom: 20px;
+
+}
+
+
+
+.input-group label {
+
+display: block;
+
+margin-bottom: 8px;
+
+font-weight: 500;
+
+color: #555;
+
+}
+
+
+
+.input-group input,
+
+.input-group textarea {
+
+width: 100%;
+
+padding: 12px;
+
+border: 1px solid #ccc;
+
+border-radius: 6px;
+
+font-size: 1em;
+
+transition: border-color 0.3s, box-shadow 0.3s;
+
+}
+
+
+
+.input-group input:focus,
+
+.input-group textarea:focus {
+
+outline: none;
+
+border-color: #005c97;
+
+box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+
+}
+
+
+
+.btn-submit {
+
+width: 100%;
+
+padding: 15px;
+
+background-color: #005c97;
+
+color: white;
+
+border: none;
+
+border-radius: 6px;
+
+font-size: 1.1em;
+
+font-weight: bold;
+
+cursor: pointer;
+
+transition: background-color 0.3s, transform 0.2s;
+
+}
+
+
+
+.btn-submit:hover:not(:disabled) {
+
+background-color: #005c97;
+
+transform: translateY(-2px);
+
+}
+
+
+
+.btn-submit:disabled {
+
+background-color: #a0c3e0;
+
+cursor: not-allowed;
+
+}
+
+
+
+.proposal-card {
+
+background: #fff;
+
+border: 1px solid #ddd;
+
+padding: 20px;
+
+margin-top: 15px;
+
+border-radius: 8px;
+
+box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+
+}
+
+
+
+.proposal-card p {
+
+margin: 5px 0;
+
+}
+
+
+
+.proposal-message {
+
+font-style: italic;
+
+color: #555;
+
+margin-top: 10px;
+
+}
+
+:host .project-detail-card {
+
+background-color: #fff;
+
+border: 1px solid #e0e0e0;
+
+border-radius: 8px;
+
+padding: 2rem;
+
+margin-bottom: 2rem;
+
+box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+
+}
+
+
+
+:host .project-header h1 {
+
+margin-top: 0;
+
+font-size: 2.5rem;
+
+color: #333;
+
+}
+
+
+
+:host .company-name {
+
+font-size: 1.1rem;
+
+color: #6c757d;
+
+margin-bottom: 1rem;
+
+}
+
+
+
+:host .budget {
+
+font-size: 1.3rem;
+
+font-weight: 600;
+
+color: #28a745;
+
+}
+
+
+
+:host .project-body h3 {
+
+border-bottom: 1px solid #eee;
+
+padding-bottom: 0.5rem;
+
+margin-top: 2rem;
+
+margin-bottom: 1rem;
+
+}
+
+
+
+:host .proposals-section {
+
+margin-top: 2rem;
+
+}
+
+
+
+:host .proposals-section h3 {
+
+font-size: 1.8rem;
+
+}
+
+
+
+:host .proposal-card {
+
+background-color: #f8f9fa;
+
+border: 1px solid #e9ecef;
+
+border-left: 5px solid #005c97;
+
+padding: 1.5rem;
+
+margin-bottom: 1rem;
+
+border-radius: 5px;
+
+}
+
+
+
+:host .proposal-message {
+
+font-style: italic;
+
+color: #555;
+
+margin-top: 0.5rem;
+
+}
+
+
+
+:host .empty-message, :host .loading-message {
+
+text-align: center;
+
+font-size: 1.1rem;
+
+color: #777;
+
+padding: 2rem;
+
+background-color: #f9f9f9;
+
+border-radius: 8px;
+
+}
+
+
+
+:host .feedback-alert {
+
+text-align: center;
+
+padding: 1rem;
+
+margin-top: 1rem;
+
+border-radius: 5px;
+
+background-color: #d1ecf1;
+
+color: #0c5460;
+
+border: 1px solid #bee5eb;
+
+}
+
+/* Estilos Globais para Formulários */
+
+.form-container {
+
+max-width: 700px;
+
+margin: 2rem auto;
+
+padding: 2rem;
+
+background-color: #ffffff;
+
+border-radius: 8px;
+
+box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+
+}
+
+
+
+.form-container h1 {
+
+text-align: center;
+
+margin-top: 0;
+
+margin-bottom: 2rem;
+
+}
+
+
+
+.input-group {
+
+margin-bottom: 1.5rem;
+
+}
+
+
+
+.input-group label {
+
+display: block;
+
+margin-bottom: 0.5rem;
+
+font-weight: 600;
+
+color: #333;
+
+}
+
+
+
+.input-group input[type="text"],
+
+.input-group input[type="number"],
+
+.input-group input[type="email"],
+
+.input-group input[type="password"],
+
+.input-group textarea,
+
+.input-group select {
+
+width: 100%;
+
+padding: 12px;
+
+border: 1px solid #ccc;
+
+border-radius: 5px;
+
+font-size: 1rem;
+
+box-sizing: border-box; 
+
+}
+
+
+
+
+.btn, .btn-submit {
+
+width: 100%;
+
+background-color: #005c97;
+
+color: white;
+
+padding: 12px 20px;
+
+border: none;
+
+border-radius: 5px;
+
+cursor: pointer;
+
+text-decoration: none;
+
+display: inline-block;
+
+font-size: 16px;
+
+font-weight: 600;
+
+text-align: center;
+
+transition: background-color 0.3s;
+
+}
+
+
+
+.btn:hover, .btn-submit:hover {
+
+background-color: #005c97;
+
+}
+
+
+
+.btn[disabled] {
+
+background-color: #ccc;
+
+cursor: not-allowed;
+
+}

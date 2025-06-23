@@ -8,14 +8,22 @@
   <div *ngIf="!isLoading && !errorMessage">
     <div *ngIf="proposals.length > 0; else noProposals">
       <div class="proposal-list">
-        <div *ngFor="let proposal of proposals" class="proposal-card" [routerLink]="['/projects', proposal.project.id]">
+        
+        <div *ngFor="let proposal of proposals" class="proposal-card">
+          
           <h3>{{ proposal.project.title }}</h3>
           <p><strong>Sua oferta:</strong> R$ {{ proposal.valor | number:'1.2-2' }}</p>
           <p class="proposal-message">"{{ proposal.mensagem_proposta | slice:0:150 }}..."</p>
-          <a class="details-link">Ver Detalhes do Projeto</a>
+          
+          <div class="actions">
+            <a [routerLink]="['/proposals', proposal.id, 'edit']" class="btn btn-secondary">Editar</a>
+            <button (click)="onDelete(proposal.id)" class="btn btn-danger">Excluir</button>
+          </div>
+
         </div>
       </div>
     </div>
+
     <ng-template #noProposals>
       <p class="empty-message">Você ainda não enviou nenhuma proposta. <a routerLink="/projects">Encontre projetos para começar!</a></p>
     </ng-template>

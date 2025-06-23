@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 use App\Models\Project;
 use Illuminate\Http\Request;
@@ -30,7 +31,7 @@ class ProjectController extends Controller
     }
 
     $validatedData['company_id'] = $user->company->id;
-    $validatedData['skills'] = ''; // Adiciona uma string vazia para satisfazer o NOT NULL
+    $validatedData['skills'] = ''; 
 
     $project = Project::create($validatedData);
 
@@ -58,9 +59,45 @@ class ProjectController extends Controller
         
         // Busca no banco de dados todos os projetos com esse company_id
         $projects = Project::where('company_id', $companyId)
-                            ->latest() // Ordena pelos mais recentes
+                            ->latest() 
                             ->get();
 
         return response()->json($projects);
+    }
+    public function update(Request $request, Project $project)
+    {
+        // Garante que o usuário logado é o dono do projeto
+        if (Auth::user()->company->id !== $project->company_id) {
+            return response()->json(['message' => 'Ação não autorizada.'], 403);
+        }
+
+        $validatedData = $request->validate([
+            'title' => 'sometimes|required|string|max:255',
+            'description' => 'sometimes|required|string',
+            'budget' => 'sometimes|required|numeric|min:0',
+            'status' => 'sometimes|required|in:aberto,em_andamento,concluido,cancelado',
+        ]);
+
+        $project->update($validatedData);
+
+        return response()->json($project);
+    }
+
+    /**
+     * Deleta um projeto do banco de dados.
+     */
+    public function destroy(Project $project)
+    {
+        // Garante que o usuário logado é o dono do projeto
+        if (Auth::user()->company->id !== $project->company_id) {
+            return response()->json(['message' => 'Ação não autorizada.'], 403);
+        }
+
+        // Deleta as propostas associadas primeiro para manter a integridade do banco
+        $project->proposals()->delete();
+        $project->delete();
+
+        // Retorna uma resposta de sucesso sem conteúdo
+        return response()->noContent();
     }
 }

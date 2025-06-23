@@ -12,6 +12,9 @@ import { FreelancerProposalsComponent } from './pages/freelancer-proposals/freel
 import { authGuard } from './guards/auth.guard';
 import { companyGuard } from './guards/company.guard';
 import { freelancerGuard } from './guards/freelancer.guard';
+import { ProjectEditComponent } from './pages/project-edit/project-edit.component';
+import { ProposalEditComponent } from './pages/proposal-edit/proposal-edit.component';
+
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -28,6 +31,8 @@ export const routes: Routes = [
     // Rotas específicas de usuário com suas guardas
     { path: 'my-projects', component: CompanyProjectsComponent, canActivate: [authGuard, companyGuard] },
     { path: 'my-proposals', component: FreelancerProposalsComponent, canActivate: [authGuard, freelancerGuard] },
+    {path: 'projects/:id/edit', component: ProjectEditComponent, canActivate: [companyGuard]},
+    {path: 'proposals/:id/edit', component: ProposalEditComponent, canActivate: [freelancerGuard]},
 
     // Rota Curinga 
     { path: '**', redirectTo: '', pathMatch: 'full' }

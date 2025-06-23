@@ -1,0 +1,34 @@
+<div class="container form-container" *ngIf="!isLoading">
+  <h1>Editar Projeto</h1>
+  <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+    <div class="input-group">
+      <label for="title">Título do Projeto</label>
+      <input id="title" type="text" formControlName="title">
+    </div>
+
+    <div class="input-group">
+      <label for="description">Descrição Detalhada</label>
+      <textarea id="description" formControlName="description" rows="6"></textarea>
+    </div>
+
+    <div class="input-group">
+      <label for="budget">Orçamento (R$)</label>
+      <input id="budget" type="number" formControlName="budget">
+    </div>
+
+    <div class="input-group">
+        <label for="status">Status do Projeto</label>
+        <select id="status" formControlName="status">
+            <option value="aberto">Aberto</option>
+            <option value="em_andamento">Em Andamento</option>
+            <option value="concluido">Concluído</option>
+            <option value="cancelado">Cancelado</option>
+        </select>
+    </div>
+
+    <div *ngIf="feedbackMessage" class="alert alert-error">{{ feedbackMessage }}</div>
+
+    <button type="submit" class="btn-submit" [disabled]="projectForm.invalid">Salvar Alterações</button>
+  </form>
+</div>
+<div *ngIf="isLoading" class="loading-spinner">Carregando...</div>

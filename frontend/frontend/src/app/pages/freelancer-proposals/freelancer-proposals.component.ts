@@ -30,4 +30,20 @@ export class FreelancerProposalsComponent implements OnInit {
       }
     });
   }
-}
+  /**
+   * NOVO MÉTODO ADICIONADO AQUI
+   * Esta função será chamada quando o botão "Excluir" for clicado.
+   * @param proposalId O ID da proposta a ser deletada.
+   */
+  onDelete(proposalId: number): void {
+    if (confirm('Tem certeza que deseja deletar esta proposta?')) {
+      this.proposalService.deleteProposal(proposalId).subscribe({
+        next: () => {
+          // Remove a proposta da lista na tela para um feedback instantâneo
+          this.proposals = this.proposals.filter(p => p.id !== proposalId);
+          alert('Proposta deletada com sucesso!');
+        },
+        error: (err) => {
+          alert('Erro ao deletar a proposta.');
+          console.error(err);
+      }})}}}

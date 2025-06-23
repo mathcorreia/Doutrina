@@ -1,0 +1,15 @@
+<div class="form-container">
+  <h2>Editar Proposta</h2>
+  <form *ngIf="!isLoading" [formGroup]="proposalForm" (ngSubmit)="onSubmit()">
+    <div class="input-group">
+      <label for="valor">Sua Oferta (R$)</label>
+      <input id="valor" type="number" formControlName="valor">
+    </div>
+    <div class="input-group">
+      <label for="mensagem_proposta">Mensagem de Apresentação</label>
+      <textarea id="mensagem_proposta" formControlName="mensagem_proposta" rows="5"></textarea>
+    </div>
+    <button type="submit" class="btn-submit" [disabled]="proposalForm.invalid">Salvar Alterações</button>
+  </form>
+  <div *ngIf="isLoading">Carregando dados da proposta...</div>
+</div>

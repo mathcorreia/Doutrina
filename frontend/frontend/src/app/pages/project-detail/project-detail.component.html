@@ -5,6 +5,10 @@
         <h1>{{ project.title }}</h1>
         <p class="company-name">Publicado por: <strong>{{ project.company.user.name }}</strong></p>
         <div class="budget">Orçamento: R$ {{ project.budget | number:'1.2-2' }}</div>
+        <div class="project-actions" *ngIf="isOwner">
+  <a [routerLink]="['/projects', project.id, 'edit']" class="btn btn-secondary">Editar Projeto</a>
+  <button (click)="onDeleteProject()" class="btn btn-danger">Deletar Projeto</button>
+</div>
       </div>
       <div class="project-body">
         <h3>Descrição do Projeto</h3>

@@ -52,4 +52,43 @@ class ProposalController extends Controller
         
         return response()->json($proposals);
     }
+    public function show(Proposal $proposal)
+{
+    // Garante que o usuário logado é o dono da proposta
+    if (Auth::user()->freelancer->id !== $proposal->freelancer_id) {
+        return response()->json(['message' => 'Ação não autorizada.'], 403);
+    }
+    return response()->json($proposal);
+}
+    public function update(Request $request, Proposal $proposal)
+    {
+        // Garante que o usuário logado é o dono da proposta
+        if (Auth::user()->freelancer->id !== $proposal->freelancer_id) {
+            return response()->json(['message' => 'Ação não autorizada.'], 403);
+        }
+
+        $validatedData = $request->validate([
+            'valor' => 'sometimes|required|numeric|min:0',
+            'mensagem_proposta' => 'sometimes|required|string',
+        ]);
+
+        $proposal->update($validatedData);
+
+        return response()->json($proposal);
+    }
+
+    /**
+     * Deleta uma proposta.
+     */
+    public function destroy(Proposal $proposal)
+    {
+        // Garante que o usuário logado é o dono da proposta
+        if (Auth::user()->freelancer->id !== $proposal->freelancer_id) {
+            return response()->json(['message' => 'Ação não autorizada.'], 403);
+        }
+
+        $proposal->delete();
+
+        return response()->noContent();
+    }
 }

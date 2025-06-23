@@ -18,6 +18,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   isLoggedIn = false;
   user: User | null = null;
   isCompany = false;
+  isFreelancer = false;
   private userSubscription!: Subscription;
 
   constructor(public authService: AuthService) {}
@@ -27,6 +28,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.isLoggedIn = !!user;
       this.user = user;
       this.isCompany = this.authService.isCompany();
+      this.isFreelancer = user?.user_type === 'freelancer';
     });
   }
 

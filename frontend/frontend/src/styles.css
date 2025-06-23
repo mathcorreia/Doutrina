@@ -102,9 +102,9 @@ a:hover { color: var(--color-primary); }
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
   transition: transform 0.2s, box-shadow 0.2s;
   cursor: pointer;
-  display: block; /* Garante que o card ocupe a largura */
-  text-decoration: none; /* Remove sublinhado se o card for um link */
-  color: inherit; /* Herda a cor do texto padrão */
+  display: block; 
+  text-decoration: none; 
+  color: inherit; 
 }
 
 .project-card:hover {
@@ -135,7 +135,7 @@ a:hover { color: var(--color-primary); }
   color: #007bff;
   text-decoration: none;
   display: inline-block;
-  margin-top: auto; /* Alinha o link na parte inferior do card */
+  margin-top: auto; 
 }
 
 .proposal-card {
@@ -159,4 +159,17 @@ a:hover { color: var(--color-primary); }
   padding: 10px;
   border-left: 3px solid #007bff;
   background-color: #fff;
+}
+.feedback-toast {
+  padding: 1rem;
+  border-radius: 5px;
+  color: #fff;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+.feedback-toast.success {
+  background-color: #28a745; 
+}
+.feedback-toast.error {
+  background-color: #dc3545; 
 }
