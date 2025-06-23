@@ -7,6 +7,11 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Models\Proposal;
 use Illuminate\Http\Request;
+use App\Models\Project;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ProposalAccepted;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log; 
 
 class ProposalController extends Controller
 {
@@ -91,28 +96,46 @@ class ProposalController extends Controller
 
         return response()->noContent();
     }
-    public function accept(Request $request, Proposal $proposal)
+     public function accept(Request $request, Proposal $proposal)
     {
         $user = Auth::user();
 
-        // Garante que o usuário logado é o dono do projeto da proposta
-        if ($user->company->id !== $proposal->project->company_id) {
+        // Verificações de segurança (se o usuário é empresa e dono do projeto)
+        if (!$user || !$user->company || $user->company->id !== $proposal->project->company_id) {
             return response()->json(['message' => 'Ação não autorizada.'], 403);
         }
 
-        // Atualiza o status da proposta para 'aceita'
-        $proposal->status = 'aceita';
-        $proposal->save();
+        // Inicia uma transação de banco de dados para garantir que tudo aconteça com sucesso
+        DB::transaction(function () use ($proposal) {
+            // 1. Atualiza a proposta aceita
+            $proposal->status = 'aceita';
+            $proposal->save();
 
-        $proposal->project->status = 'em_andamento';
-        $proposal->project->save();
-        
-        
+            // 2. Atualiza o status do projeto para fechá-lo
+            $project = $proposal->project;
+            $project->status = 'em_andamento';
+            $project->save();
+
+            // 3. Rejeita todas as outras propostas pendentes para este projeto
+            Proposal::where('project_id', $project->id)
+                      ->where('status', 'enviada')
+                      ->update(['status' => 'recusada']);
+        });
+
+        // 4. Envia o e-mail de notificação para o freelancer
+        try {
+            Mail::to($proposal->freelancer->user->email)->send(new ProposalAccepted($proposal));
+        } catch (\Exception $e) {
+            // Opcional: Loga o erro se o e-mail não puder ser enviado, mas não quebra a requisição
+            Log::error("Falha ao enviar e-mail de proposta aceita: " . $e->getMessage());
+        }
+
         return response()->json([
-            'message' => 'Proposta aceita com sucesso! Um contrato simulado foi enviado.',
-            'proposal' => $proposal
+            'message' => 'Proposta aceita com sucesso! O freelancer foi notificado.',
+            'proposal' => $proposal->fresh()
         ]);
     }
+
     public function reject(Request $request, Proposal $proposal)
     {
         $user = Auth::user();

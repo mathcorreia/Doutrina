@@ -129,16 +129,12 @@ export class ProjectDetailComponent implements OnInit {
 
   this.proposalService.acceptProposal(proposalId).subscribe({
     next: (response) => {
-      alert(response.message); // Exibe a mensagem de sucesso da API
-      // Atualiza o status da proposta na tela para 'aceita'
-      const acceptedProposal = this.project.proposals.find((p: any) => p.id === proposalId);
-      if (acceptedProposal) {
-        acceptedProposal.status = 'aceita';
-      }
+      alert(response.message);
+      this.loadProjectDetails(this.project.id); // Recarrega os dados do projeto
     },
     error: (err) => {
-      alert('Erro ao aceitar a proposta.');
-      console.error(err);
+      // Exibe a mensagem de erro específica vinda da API
+      alert(err.error.message || 'Erro ao aceitar a proposta.');
     }
   });
 }

@@ -9,12 +9,13 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-public function up(): void
-{
-    Schema::table('proposals', function (Blueprint $table) {
-        $table->string('status')->default('enviada')->after('mensagem_proposta'); // Opções: enviada, aceita, recusada
-    });
-}
+    public function up(): void
+    {
+        Schema::table('proposals', function (Blueprint $table) {
+            // Adiciona a coluna 'status' com um valor padrão 'enviada'
+            $table->string('status')->default('enviada')->after('mensagem_proposta');
+        });
+    }
 
     /**
      * Reverse the migrations.
@@ -22,9 +23,7 @@ public function up(): void
     public function down(): void
     {
         Schema::table('proposals', function (Blueprint $table) {
-            //
+            $table->dropColumn('status');
         });
-        
     }
-    
 };

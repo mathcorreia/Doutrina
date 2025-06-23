@@ -8,3 +8,52 @@ h1 { color: #333; }
 .proposal-message { font-style: italic; background-color: #f8f9fa; padding: 10px; border-left: 3px solid #007bff; border-radius: 4px; margin-top: 10px; }
 .details-link { display: inline-block; margin-top: 15px; font-weight: bold; color: #007bff; text-decoration: none; }
 .loading-message, .error-message, .empty-message { text-align: center; font-size: 1.2em; color: #666; margin-top: 40px; }
+.proposal-card {
+  position: relative; /* Necessário para o badge de status */
+  border-left: 5px solid #6c757d; /* Cinza padrão para 'enviada' */
+  padding-top: 40px; /* Espaço para o badge */
+}
+
+/* Estilos para propostas aceitas */
+.proposal-card.status-aceita {
+  border-left-color: #28a745; /* Verde */
+  background-color: #f0fff4;
+}
+
+/* Estilos para propostas recusadas */
+.proposal-card.status-recusada {
+  border-left-color: #dc3545; /* Vermelho */
+  opacity: 0.8;
+  background-color: #fff5f5;
+}
+
+.status-badge {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  padding: 5px 12px;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: white;
+}
+
+.badge-enviada {
+  background-color: #6c757d;
+}
+
+.badge-aceita {
+  background-color: #28a745;
+}
+
+.badge-recusada {
+  background-color: #dc3545;
+}
+
+.actions {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e0e0e0;
+  display: flex;
+  gap: 1rem;
+}
