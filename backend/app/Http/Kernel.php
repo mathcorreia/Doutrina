@@ -1,4 +1,3 @@
-// backend/config/cors.php
 <?php
 
 return [
