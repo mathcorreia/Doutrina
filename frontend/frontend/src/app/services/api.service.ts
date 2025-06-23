@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ApiService {
-  private baseUrl = 'http://localhost:8000/api'; 
+  private baseUrl = 'https://freelahub-backend.fly.dev/api'; 
   constructor(private http: HttpClient) { }
 
   post(endpoint: string, data: any): Observable<any> {
