@@ -18,12 +18,14 @@ console_command = 'php /var/www/html/artisan tinker'
   SESSION_DRIVER = 'cookie'
   SESSION_SECURE_COOKIE = 'true'
 
-
+# Esta secção monta o volume que criámos
+# Ela diz: "o disco 'freelahub_data' deve ser acessível dentro da app na pasta /data"
 [mounts]
   source = "freelahub_data"
   destination = "/data"
 
-
+# O comando de release agora executa apenas a migração.
+# O Laravel criará o ficheiro do SQLite automaticamente no volume.
 [deploy]
   release_command = "php artisan migrate --force"
 
