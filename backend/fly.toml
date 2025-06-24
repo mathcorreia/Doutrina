@@ -1,7 +1,5 @@
-# fly.toml app configuration file generated for freelahub-backend on 2025-06-23T15:54:13-03:00
-#
+# fly.toml app configuration file
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
-#
 
 app = 'freelahub-backend'
 primary_region = 'gru'
@@ -20,11 +18,14 @@ console_command = 'php /var/www/html/artisan tinker'
   SESSION_DRIVER = 'cookie'
   SESSION_SECURE_COOKIE = 'true'
 
-# --- SEÇÃO ADICIONADA AQUI ---
-# Esta seção executa comandos importantes a cada novo deploy.
+
+[mounts]
+  source = "freelahub_data"
+  destination = "/data"
+
+
 [deploy]
-  release_command = "php artisan migrate --force"
-# -----------------------------
+  release_command = "touch /data/database.sqlite && php artisan migrate --force"
 
 [http_service]
   internal_port = 8080
