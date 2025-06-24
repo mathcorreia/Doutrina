@@ -25,7 +25,7 @@ console_command = 'php /var/www/html/artisan tinker'
 
 
 [deploy]
-  release_command = "touch /data/database.sqlite && php artisan migrate --force"
+  release_command = "php artisan migrate --force"
 
 [http_service]
   internal_port = 8080
