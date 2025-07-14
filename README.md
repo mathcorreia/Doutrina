@@ -130,5 +130,3 @@ Este projeto está sob a licença MIT. Sinta-se livre para usar, modificar e con
 ## Equipe do Projeto
 
 * **Matheus Correia** - *Desenvolvedor Full-Stack* - [mathcorreia](https://github.com/mathcorreia)
-* **João Victor**
-*  **Renilson Micael**
