@@ -12,31 +12,45 @@ Este projeto foi construído com uma arquitetura de API RESTful no backend e uma
 ✅ PHP 8+ 
 <br>
 ✅ Laravel 11+: Um framework PHP robusto e elegante.
+<br>
 ✅ SQLite: Banco de dados leve e baseado em arquivo, ideal para desenvolvimento.
+<br>
 ✅ Laravel Sanctum: Para autenticação de API segura e baseada em tokens.
+<br>
 ✅ Eloquent ORM: Para manipulação de dados de forma intuitiva e segura.
 
 
 ## Frontend (Angular)
 ✅ Angular 17+: Um framework de ponta para criar aplicações web dinâmicas.
+<br>
 ✅ TypeScript: Superset do JavaScript que adiciona tipagem estática.
+<br>
 ✅ HTML5 & CSS3/SCSS: Para estruturação e estilização modernas.
+<br>
 ✅ Angular Router: Para criar uma experiência de navegação fluida de Single-Page Application (SPA).
+<br>
 ✅ Reactive Forms: Para criar formulários robustos e escaláveis.
+<br>
 ✅ HTTP Client & Interceptors: Para uma comunicação eficiente e segura com a API.
 
 ## 🎯 Funcionalidades Implementadas
 
 ### 👩‍💼 Para Empresas
 Autenticação Segura: Cadastro e Login específicos para empresas.
+<br>
 Gerenciamento de Projetos: Publicação de novos projetos com título, descrição e orçamento.
+<br>
 Visualização de Propostas: Acesso a uma lista de propostas enviadas por freelancers para seus projetos.
+<br>
 Navegação Protegida: Acesso exclusivo à página de criação de projetos através de Guards.
 
 ### 💼 Para Freelancers
 Autenticação Segura: Cadastro e Login específicos para freelancers.
+<br>
 Visualização de Oportunidades: Navegação em uma lista de projetos disponíveis.
+<br>
 Envio de Propostas: Formulário para enviar propostas com valor e mensagem de apresentação.
+<br>
 Perfil Personalizado: Base para futuras implementações, como upload de foto de perfil.
 ```
  📂 Estrutura do Projeto
