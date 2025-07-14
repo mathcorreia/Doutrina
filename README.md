@@ -9,7 +9,7 @@ FreelaHub é uma plataforma web full-stack, moderna e intuitiva, que conecta fre
 Este projeto foi construído com uma arquitetura de API RESTful no backend e uma Single-Page Application (SPA) no frontend.
 
 ## Backend (Laravel)
-✅ PHP 8+
+✅ PHP 8+ /n
 ✅ Laravel 11+: Um framework PHP robusto e elegante.
 ✅ SQLite: Banco de dados leve e baseado em arquivo, ideal para desenvolvimento.
 ✅ Laravel Sanctum: Para autenticação de API segura e baseada em tokens.
